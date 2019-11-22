@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using StrategyGame.Dal;
 using Microsoft.EntityFrameworkCore;
 using StrategyGame.Bll.Repository;
 using StrategyGame.Bll.Services;
 using Microsoft.AspNetCore.Identity;
+using StrategyGame.Model.Entities;
 
 namespace StrategyGame.Api
 {
@@ -35,11 +35,19 @@ namespace StrategyGame.Api
                 opt.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection"));
         });
 
-            services.AddIdentityCore<IdentityUser>()
-                .AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddScoped<ITestService, TestService>();
+
+            services.AddScoped<IUserService, UserService>();
             services.AddControllers();
+
+            var builder = services.AddIdentityCore<User>();
+
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<AppDbContext>();
+            identityBuilder.AddSignInManager<SignInManager<User>>();
+
+            services.AddAuthentication();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +65,7 @@ namespace StrategyGame.Api
             app.UseAuthentication();
 
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
