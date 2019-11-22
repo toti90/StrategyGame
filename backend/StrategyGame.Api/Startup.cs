@@ -4,11 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using StrategyGame.Dal;
+using Microsoft.EntityFrameworkCore;
+using StrategyGame.Bll.Repository;
+using StrategyGame.Bll.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace StrategyGame.Api
 {
@@ -24,18 +30,38 @@ namespace StrategyGame.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContextPool<AppDbContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection"));
+        });
+
+            services.AddIdentityCore<IdentityUser>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddScoped<ITestService, TestService>();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
