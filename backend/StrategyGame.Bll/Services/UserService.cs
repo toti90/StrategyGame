@@ -78,9 +78,17 @@ namespace StrategyGame.Bll.Services
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
+
+                //Add new Storage for new user
                 var newUser = _context.Users.FirstOrDefault(user => user.UserName == userName);
                 _context.Storages.Add(new Storage { User = newUser });
+
+                //Add new Building for new user
+                var building = _context.Buildings.FirstOrDefault(building => building.BuildingName == "Áramlásirányító");
+                _context.BuildingGroups.Add(new BuildingGroup { Amount = 1, Building = building, User = newUser });
+
                 await _context.SaveChangesAsync();
+
                 var responseUser = new UserRegisterResponseDTO
                 {
                     UserId = newUser.Id,

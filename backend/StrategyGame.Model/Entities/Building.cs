@@ -7,6 +7,10 @@ namespace StrategyGame.Model.Entities
 {
     public class Building
     {
+        public Building()
+        {
+            BuildingGroups = new HashSet<BuildingGroup>();
+        }
         public int BuildingId { get; set; }
         [Required]
         public string BuildingName { get; set; }
@@ -16,6 +20,7 @@ namespace StrategyGame.Model.Entities
         public int? AddPeople { get; set; }
         public int? HotelForArmy { get; set; }
         public string ImageUrl { get; set; }
+        public ICollection<BuildingGroup> BuildingGroups { get; set; }
 
     }
 }

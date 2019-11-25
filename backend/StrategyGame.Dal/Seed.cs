@@ -16,6 +16,7 @@ namespace StrategyGame.Dal
             SeedUsers(userManager);
             SeedStorages(context);
             SeedBuildings(context);
+            SeedBuildingGroups(context);
             await context.SaveChangesAsync();
 
         }
@@ -90,6 +91,23 @@ namespace StrategyGame.Dal
                 };
 
                 context.Buildings.AddRange(buildings);
+            }
+        }
+
+        public static void SeedBuildingGroups(AppDbContext context)
+        {
+            if (!context.BuildingGroups.Any())
+            {
+                var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
+                var building = context.Buildings.FirstOrDefault(building => building.BuildingName == "Áramlásirányító");
+                var buildingGroup = new BuildingGroup
+                {
+                    Amount = 1,
+                    User = user,
+                    Building = building
+                };
+
+                context.BuildingGroups.Add(buildingGroup);
             }
         }
     }
