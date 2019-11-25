@@ -45,7 +45,11 @@ namespace StrategyGame.Api
 
             services.AddControllers();
 
-            var builder = services.AddIdentityCore<User>();
+            var builder = services.AddIdentityCore<User>(opt => {
+                opt.Password.RequiredLength = 2;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+            });
 
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<AppDbContext>();

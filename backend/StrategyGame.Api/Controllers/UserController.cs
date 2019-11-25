@@ -29,9 +29,9 @@ namespace StrategyGame.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserResponseDTO>> Login(UserDTO userInput)
+        public async Task<ActionResult<UserLoginResponseDTO>> Login(UserLoginDTO userInput)
         {
-            UserResponseDTO user;
+            UserLoginResponseDTO user;
             try
             {
                 user = await _IUserService.LoginUser(userInput.UserName, userInput.Password);
@@ -47,6 +47,23 @@ namespace StrategyGame.Api.Controllers
             {
                 return Ok(user);
             }
+
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserRegisterResponseDTO>> Register(UserRegisterDTO userInput)
+        {
+            UserRegisterResponseDTO user;
+            try
+            {
+                user = await _IUserService.RegisterUser(userInput.UserName, userInput.Password, userInput.confirmPassword, userInput.CountryName);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
+            return Ok(user);
 
         }
     }
