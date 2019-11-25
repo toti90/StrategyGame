@@ -21,6 +21,9 @@ namespace StrategyGame.Dal
         public DbSet<Development> Developments { get; set; }
         public DbSet<DevelopmentGroup> DevelopmentGroups { get; set; }
         public DbSet<NewDevelopment> NewDevelopments { get; set; }
+        public DbSet<Unit> Units { get; set; }
+        public DbSet<Legion> Legions { get; set; }
+        public DbSet<FightGroup> FightGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

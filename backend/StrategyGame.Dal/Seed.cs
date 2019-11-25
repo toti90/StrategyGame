@@ -168,6 +168,84 @@ namespace StrategyGame.Dal
                 context.NewDevelopments.Add(newDevelopment);
                 await context.SaveChangesAsync();
             }
+            if (!context.Units.Any())
+            {
+                var units = new List<Unit>
+                {
+                    new Unit
+                    {
+                        UnitName = "Rohamfóka",
+                        Attack = 6,
+                        Defense = 2,
+                        Price = 50,
+                        Salary = 1,
+                        Food = 1
+                    },
+                    new Unit
+                    {
+                        UnitName = "Csatacsikó",
+                        Attack = 2,
+                        Defense = 6,
+                        Price = 50,
+                        Salary = 1,
+                        Food = 1
+                    },
+                    new Unit
+                    {
+                        UnitName = "Lézercápa",
+                        Attack = 5,
+                        Defense = 5,
+                        Price = 100,
+                        Salary = 3,
+                        Food = 2
+                    },
+                };
+
+                context.Units.AddRange(units);
+                await context.SaveChangesAsync();
+            }
+            if (!context.Legions.Any())
+            {
+                var unit1 = context.Units.FirstOrDefault(d => d.UnitName == "Lézercápa");
+                var unit2 = context.Units.FirstOrDefault(d => d.UnitName == "Csatacsikó");
+                var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
+                var legion = new List<Legion>
+                {
+                    new Legion
+                    {
+                        User = user,
+                        Unit = unit1,
+                        Amount = 10
+                    },
+                    new Legion
+                    {
+                        User = user,
+                        Unit = unit2,
+                        Amount = 20
+                    }
+
+                };
+
+                context.Legions.AddRange(legion);
+                await context.SaveChangesAsync();
+            }
+            if (!context.FightGroups.Any())
+            {
+                var unit1 = context.Units.FirstOrDefault(d => d.UnitName == "Lézercápa");
+                var user = context.Users.Include(p => p.Legions).Where(user => user.UserName == "toti").First();
+                var attackedUser = context.Users.FirstOrDefault(user => user.UserName == "toti32");
+                var legion = user.Legions.Where(l => l.Unit == unit1).First();
+                var fightGroup = new FightGroup
+                {
+                    OwnerUser = user,
+                    PartOfLegion = 0.5,
+                    Legion = legion,
+                    AttackedUserId = attackedUser.Id
+                };
+
+                context.FightGroups.Add(fightGroup);
+                await context.SaveChangesAsync();
+            }
 
         }
 
@@ -207,6 +285,7 @@ namespace StrategyGame.Dal
         {
             if (!context.Storages.Any())
             {
+                
                 var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
                 var storage = new Storage
                 {

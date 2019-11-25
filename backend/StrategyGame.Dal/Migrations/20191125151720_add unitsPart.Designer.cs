@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StrategyGame.Dal;
 
 namespace StrategyGame.Dal.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191125151720_add unitsPart")]
+    partial class addunitsPart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,7 +316,11 @@ namespace StrategyGame.Dal.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitId")
+                    b.Property<string>("UnitId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UnitId1")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -323,7 +329,7 @@ namespace StrategyGame.Dal.Migrations
 
                     b.HasKey("LegionId");
 
-                    b.HasIndex("UnitId");
+                    b.HasIndex("UnitId1");
 
                     b.HasIndex("UserId");
 
@@ -605,9 +611,7 @@ namespace StrategyGame.Dal.Migrations
                 {
                     b.HasOne("StrategyGame.Model.Entities.Unit", "Unit")
                         .WithMany("Legions")
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnitId1");
 
                     b.HasOne("StrategyGame.Model.Entities.User", "User")
                         .WithMany("Legions")
