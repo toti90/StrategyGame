@@ -31,37 +31,17 @@ namespace StrategyGame.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserLoginResponseDTO>> Login(UserLoginDTO userInput)
         {
-            UserLoginResponseDTO user;
-            try
-            {
-                user = await _IUserService.LoginUser(userInput.UserName, userInput.Password);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-            if (user == null)
-            {
-                return Forbid("wrong username and/or password");
-            } else
-            {
-                return Ok(user);
-            }
+            var user = await _IUserService.LoginUser(userInput.UserName, userInput.Password);
+
+            return Ok(user);
 
         }
+
 
         [HttpPost("register")]
         public async Task<ActionResult<UserRegisterResponseDTO>> Register(UserRegisterDTO userInput)
         {
-            UserRegisterResponseDTO user;
-            try
-            {
-                user = await _IUserService.RegisterUser(userInput.UserName, userInput.Password, userInput.confirmPassword, userInput.CountryName);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
+            var user = await _IUserService.RegisterUser(userInput.UserName, userInput.Password, userInput.confirmPassword, userInput.CountryName);
 
             return Ok(user);
 

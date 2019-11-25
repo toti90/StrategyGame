@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StrategyGame.Bll.DTO;
+using StrategyGame.Bll.Errors;
 using StrategyGame.Bll.Repository;
 using StrategyGame.Dal;
 using StrategyGame.Model.Entities;
@@ -34,7 +35,7 @@ namespace StrategyGame.Bll.Services
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
             {
-                return null;
+                throw new RestException(HttpStatusCode.Forbidden, new { message = "wrong username and/or password" });
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
@@ -50,7 +51,7 @@ namespace StrategyGame.Bll.Services
             }
             else if (!result.Succeeded)
             {
-                return null;
+                throw new RestException(HttpStatusCode.Forbidden, new { message = "wrong username and/or password" });
             }
             else
             {
@@ -62,11 +63,11 @@ namespace StrategyGame.Bll.Services
         {
             if (await _context.Users.Where(user => user.UserName == userName).AnyAsync())
             {
-                throw new Exception("username has already been taken");
+                throw new RestException(HttpStatusCode.Conflict, new { message = "username has already been taken" });
             }
             if (await _context.Users.Where(user => user.CountryName == countryName).AnyAsync())
             {
-                throw new Exception("country name has already been taken");
+                throw new RestException(HttpStatusCode.Conflict, new { message = "country name has already been taken" });
             }
             var user = new User
             {
