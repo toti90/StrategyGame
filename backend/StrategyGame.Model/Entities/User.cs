@@ -8,8 +8,13 @@ namespace StrategyGame.Model.Entities
 {
     public class User : IdentityUser
     {
+        public User()
+        {
+            BuildingGroups = new HashSet<BuildingGroup>();
+        }
         [Required]
         public string CountryName { get; set; }
         public int Place { get; set; }
+        public virtual ICollection<BuildingGroup> BuildingGroups { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace StrategyGame.Model.Entities
         public int? AddPeople { get; set; }
         public int? HotelForArmy { get; set; }
         public string ImageUrl { get; set; }
-        public ICollection<BuildingGroup> BuildingGroups { get; set; }
+        public virtual ICollection<BuildingGroup> BuildingGroups { get; set; }
 
     }
 }

@@ -85,7 +85,7 @@ namespace StrategyGame.Bll.Services
 
                 //Add new Building for new user
                 var building = _context.Buildings.FirstOrDefault(building => building.BuildingName == "Áramlásirányító");
-                _context.BuildingGroups.Add(new BuildingGroup { Amount = 1, Building = building, User = newUser });
+                _context.BuildingGroups.Add(new BuildingGroup {  Building = building, User = newUser });
 
                 await _context.SaveChangesAsync();
 

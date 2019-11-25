@@ -6,12 +6,17 @@ namespace StrategyGame.Model.Entities
 {
     public class BuildingGroup
     {
+        public BuildingGroup()
+        {
+            NewBuildings = new HashSet<NewBuilding>();
+        }
         public int BuildingGroupId { get; set; }
         public int Amount { get; set; }
         public string UserId { get; set; }
         public virtual User User { get; set; }
         public int BuildingId { get; set; }
         public virtual Building Building { get; set; }
+        public virtual ICollection<NewBuilding> NewBuildings { get; set; }
 
     }
 }
