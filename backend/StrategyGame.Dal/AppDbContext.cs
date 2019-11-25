@@ -15,6 +15,7 @@ namespace StrategyGame.Dal
         }
 
         public DbSet<Storage> Storages { get; set; }
+        public DbSet<Building> Buildings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

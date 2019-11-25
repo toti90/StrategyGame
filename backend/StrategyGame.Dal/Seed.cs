@@ -12,6 +12,16 @@ namespace StrategyGame.Dal
     {
         public static async Task SeedData(AppDbContext context, UserManager<User> userManager)
         {
+
+            SeedUsers(userManager);
+            SeedStorages(context);
+            SeedBuildings(context);
+            await context.SaveChangesAsync();
+
+        }
+
+        public async static void SeedUsers(UserManager<User> userManager)
+        {
             if (!userManager.Users.Any())
             {
                 var users = new List<User>
@@ -40,7 +50,10 @@ namespace StrategyGame.Dal
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
             }
+        }
 
+        public static void SeedStorages(AppDbContext context)
+        {
             if (!context.Storages.Any())
             {
                 var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
@@ -52,14 +65,32 @@ namespace StrategyGame.Dal
                 };
 
                 context.Storages.Add(storage);
-                context.SaveChanges();
             }
-            
         }
 
-        public static void SeedData(AppDbContext context)
+        public static void SeedBuildings(AppDbContext context)
         {
-            throw new NotImplementedException();
+            if (!context.Buildings.Any())
+            {
+                var buildings = new List<Building>
+                {
+                    new Building
+                    {
+                        BuildingName = "Áramlásirányító",
+                        Price = 1000,
+                        AddPeople = 50,
+                        AddCorall = 200
+                    },
+                    new Building
+                    {
+                        BuildingName = "Zátonyvár",
+                        Price = 1000,
+                        HotelForArmy = 200
+                    }
+                };
+
+                context.Buildings.AddRange(buildings);
+            }
         }
     }
 }
