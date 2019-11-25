@@ -79,6 +79,8 @@ namespace StrategyGame.Bll.Services
             if (result.Succeeded)
             {
                 var newUser = _context.Users.FirstOrDefault(user => user.UserName == userName);
+                _context.Storages.Add(new Storage { User = newUser });
+                await _context.SaveChangesAsync();
                 var responseUser = new UserRegisterResponseDTO
                 {
                     UserId = newUser.Id,
