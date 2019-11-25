@@ -19,6 +19,8 @@ namespace StrategyGame.Dal
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Storage>().Property(p => p.Coral).HasDefaultValue(100);
+            builder.Entity<Storage>().Property(p => p.Pearl).HasDefaultValue(100);
         }
 
     }

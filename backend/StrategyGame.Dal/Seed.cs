@@ -12,19 +12,6 @@ namespace StrategyGame.Dal
     {
         public static async Task SeedData(AppDbContext context, UserManager<User> userManager)
         {
-            if (!context.Storages.Any())
-            {
-                var user = context.Users.FirstOrDefault(user => user.UserName == "toti7");
-                var storage = new Storage
-                {
-                    Pearl = 0,
-                    Coral = 0,
-                    User = user
-                };
-
-                context.Storages.Add(storage);
-                context.SaveChanges();
-            }
             if (!userManager.Users.Any())
             {
                 var users = new List<User>
@@ -53,6 +40,21 @@ namespace StrategyGame.Dal
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
             }
+
+            if (!context.Storages.Any())
+            {
+                var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
+                var storage = new Storage
+                {
+                    Pearl = 0,
+                    Coral = 0,
+                    User = user
+                };
+
+                context.Storages.Add(storage);
+                context.SaveChanges();
+            }
+            
         }
 
         public static void SeedData(AppDbContext context)
