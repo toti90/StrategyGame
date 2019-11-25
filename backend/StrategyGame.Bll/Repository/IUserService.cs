@@ -1,4 +1,4 @@
-﻿using StrategyGame.Model.Entities;
+﻿using StrategyGame.Bll.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +8,6 @@ namespace StrategyGame.Bll.Repository
 {
     public interface IUserService
     {
-        Task<User> LoginUser(string userName, string password);
+        Task<UserDTO> LoginUser(string userName, string password);
     };
 }

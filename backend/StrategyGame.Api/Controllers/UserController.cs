@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StrategyGame.Api.DTO;
+using StrategyGame.Bll.DTO;
 using StrategyGame.Bll.Repository;
 using StrategyGame.Model.Entities;
 
@@ -29,13 +29,20 @@ namespace StrategyGame.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login([FromBody]UserDTO userInput)
+        public async Task<ActionResult<UserDTO>> Login(UserDTO userInput)
         {
-
-            var user = await _IUserService.LoginUser(userInput.UserName, userInput.Password);
+            UserDTO user;
+            try
+            {
+                user = await _IUserService.LoginUser(userInput.UserName, userInput.Password);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
             if (user == null)
             {
-                return NotFound();
+                return NotFound("wrong username and/or password");
             } else
             {
                 return Ok(user);

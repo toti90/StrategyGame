@@ -38,6 +38,8 @@ namespace StrategyGame.Api
 
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
+
             services.AddControllers();
 
             var builder = services.AddIdentityCore<User>();

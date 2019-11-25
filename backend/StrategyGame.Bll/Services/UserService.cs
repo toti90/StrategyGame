@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using StrategyGame.Bll.DTO;
 using StrategyGame.Bll.Repository;
 using StrategyGame.Model.Entities;
 using System;
@@ -14,14 +15,16 @@ namespace StrategyGame.Bll.Services
 
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IJwtGenerator _JwtGenerator;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IJwtGenerator jwtGenerator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _JwtGenerator = jwtGenerator;
         }
 
-        public async Task<User> LoginUser(string userName, string password)
+        public async Task<UserDTO> LoginUser(string userName, string password)
         {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
@@ -34,11 +37,20 @@ namespace StrategyGame.Bll.Services
             if (result.Succeeded)
             {
                 //TODO: generate Token
-                return user;
-            } 
-            else
+                var responseUser = new UserDTO { 
+                    UserName = user.UserName, 
+                    UserId = user.Id,
+                    Token = _JwtGenerator.CreateToken(user),
+                };
+                return responseUser;
+            }
+            else if (!result.Succeeded)
             {
                 return null;
+            }
+            else
+            {
+                throw new Exception("something went wrong, please try again later");
             }
         }
     }
