@@ -24,7 +24,7 @@ namespace StrategyGame.Bll.Services
             _JwtGenerator = jwtGenerator;
         }
 
-        public async Task<UserDTO> LoginUser(string userName, string password)
+        public async Task<UserResponseDTO> LoginUser(string userName, string password)
         {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
@@ -37,8 +37,7 @@ namespace StrategyGame.Bll.Services
             if (result.Succeeded)
             {
                 //TODO: generate Token
-                var responseUser = new UserDTO { 
-                    UserName = user.UserName, 
+                var responseUser = new UserResponseDTO {
                     UserId = user.Id,
                     Token = _JwtGenerator.CreateToken(user),
                 };

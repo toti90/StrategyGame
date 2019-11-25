@@ -8,6 +8,6 @@ namespace StrategyGame.Bll.Repository
 {
     public interface IUserService
     {
-        Task<UserDTO> LoginUser(string userName, string password);
+        Task<UserResponseDTO> LoginUser(string userName, string password);
     };
 }

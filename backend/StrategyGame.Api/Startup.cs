@@ -15,6 +15,9 @@ using StrategyGame.Bll.Repository;
 using StrategyGame.Bll.Services;
 using Microsoft.AspNetCore.Identity;
 using StrategyGame.Model.Entities;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace StrategyGame.Api
 {
@@ -48,7 +51,18 @@ namespace StrategyGame.Api
             identityBuilder.AddEntityFrameworkStores<AppDbContext>();
             identityBuilder.AddSignInManager<SignInManager<User>>();
 
-            services.AddAuthentication();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Strong Secret Key"));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = key,
+                        ValidateAudience = false,
+                        ValidateIssuer = false
+                    };
+                });
 
         }
 
@@ -68,7 +82,6 @@ namespace StrategyGame.Api
 
             app.UseAuthorization();
             
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

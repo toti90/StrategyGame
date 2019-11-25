@@ -29,9 +29,9 @@ namespace StrategyGame.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login(UserDTO userInput)
+        public async Task<ActionResult<UserResponseDTO>> Login(UserDTO userInput)
         {
-            UserDTO user;
+            UserResponseDTO user;
             try
             {
                 user = await _IUserService.LoginUser(userInput.UserName, userInput.Password);
@@ -42,7 +42,7 @@ namespace StrategyGame.Api.Controllers
             }
             if (user == null)
             {
-                return NotFound("wrong username and/or password");
+                return Forbid("wrong username and/or password");
             } else
             {
                 return Ok(user);
