@@ -14,6 +14,8 @@ namespace StrategyGame.Dal
         {
         }
 
+        public DbSet<Storage> Storages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
