@@ -11,10 +11,12 @@ namespace StrategyGame.Model.Entities
         public User()
         {
             BuildingGroups = new HashSet<BuildingGroup>();
+            DevelopmentGroups = new HashSet<DevelopmentGroup>();
         }
         [Required]
         public string CountryName { get; set; }
         public int Place { get; set; }
         public virtual ICollection<BuildingGroup> BuildingGroups { get; set; }
+        public virtual ICollection<DevelopmentGroup> DevelopmentGroups { get; set; }
     }
 }

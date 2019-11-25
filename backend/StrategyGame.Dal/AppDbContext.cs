@@ -18,6 +18,9 @@ namespace StrategyGame.Dal
         public DbSet<Building> Buildings { get; set; }
         public DbSet<BuildingGroup> BuildingGroups { get; set; }
         public DbSet<NewBuilding> NewBuildings { get; set; }
+        public DbSet<Development> Developments { get; set; }
+        public DbSet<DevelopmentGroup> DevelopmentGroups { get; set; }
+        public DbSet<NewDevelopment> NewDevelopments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +29,9 @@ namespace StrategyGame.Dal
             builder.Entity<Storage>().Property(p => p.Pearl).HasDefaultValue(100);
             builder.Entity<BuildingGroup>().Property(p => p.Amount).HasDefaultValue(1);
             builder.Entity<NewBuilding>().Property(p => p.Round).HasDefaultValue(1);
+            builder.Entity<DevelopmentGroup>().Property(p => p.Amount).HasDefaultValue(1);
+            builder.Entity<NewDevelopment>().Property(p => p.Round).HasDefaultValue(1);
+
         }
 
     }

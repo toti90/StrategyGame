@@ -102,6 +102,72 @@ namespace StrategyGame.Dal
                 context.NewBuildings.Add(newBuilding);
                 await context.SaveChangesAsync();
             }
+            if (!context.Developments.Any())
+            {
+                var developments = new List<Development>
+                {
+                    new Development
+                    {
+                        DevelopmentName = "Iszaptraktor",
+                        AddCorall = 1.1,
+                    },
+                    new Development
+                    {
+                        DevelopmentName = "Iszapkombájn",
+                        AddCorall = 1.15,
+                    },
+                    new Development
+                    {
+                        DevelopmentName = "Korallfal",
+                        AddDefense = 1.2,
+                    },
+                    new Development
+                    {
+                        DevelopmentName = "Szonárágyú",
+                        AddAttack = 1.2,
+                    },
+                    new Development
+                    {
+                        DevelopmentName = "Vízalatti harcművészetek",
+                        AddDefense = 1.1,
+                        AddAttack = 1.1,
+                    },
+                    new Development
+                    {
+                        DevelopmentName = "Alkímia",
+                        AddTax = 1.3,
+                    },
+                };
+
+                context.Developments.AddRange(developments);
+                await context.SaveChangesAsync();
+            }
+            if (!context.DevelopmentGroups.Any())
+            {
+                var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
+                var development = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Iszaptraktor");
+                var developmentGroup = new DevelopmentGroup
+                {
+                    User = user,
+                    Development = development
+                };
+
+                context.DevelopmentGroups.Add(developmentGroup);
+                await context.SaveChangesAsync();
+            }
+            if (!context.NewDevelopments.Any())
+            {
+                var development = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Iszaptraktor");
+                var user = context.Users.Include(p => p.DevelopmentGroups).Where(user => user.UserName == "toti").First();
+                var developmentGroup = user.DevelopmentGroups.Where(dg => dg.Development == development).First();
+                var newDevelopment = new NewDevelopment
+                {
+                    DevelopmentGroup = developmentGroup
+                };
+
+                context.NewDevelopments.Add(newDevelopment);
+                await context.SaveChangesAsync();
+            }
 
         }
 
