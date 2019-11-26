@@ -27,7 +27,7 @@ namespace StrategyGame.Api.Controllers
         {
             var response = await _IGameService.getHomeScreen();
 
-            return Ok();
+            return Ok(response);
 
         }
     }

@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StrategyGame.Api.Middlewares;
+using Newtonsoft.Json;
 
 namespace StrategyGame.Api
 {
@@ -70,6 +71,9 @@ namespace StrategyGame.Api
                         ValidateIssuer = false
                     };
                 });
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
         }
 
