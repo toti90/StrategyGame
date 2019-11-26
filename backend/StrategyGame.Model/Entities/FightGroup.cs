@@ -11,10 +11,6 @@ namespace StrategyGame.Model.Entities
         public double PartOfLegion { get; set; }
         [Required]
         public string AttackedUserId { get; set; }
-        public virtual User AttackedUser { get; set; }
-        [Required]
-        public string OwnerUserId { get; set; }
-        public virtual User OwnerUser { get; set; }
         public int LegionId { get; set; }
         public virtual Legion Legion { get; set; }
     }

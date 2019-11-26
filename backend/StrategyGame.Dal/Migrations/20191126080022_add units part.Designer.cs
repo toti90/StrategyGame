@@ -10,8 +10,8 @@ using StrategyGame.Dal;
 namespace StrategyGame.Dal.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191125151720_add unitsPart")]
-    partial class addunitsPart
+    [Migration("20191126080022_add units part")]
+    partial class addunitspart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -275,33 +275,19 @@ namespace StrategyGame.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AttackedId")
+                    b.Property<string>("AttackedUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AttackedUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("LegionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("PartOfLegion")
                         .HasColumnType("float");
 
                     b.HasKey("FightGroupId");
 
-                    b.HasIndex("AttackedUserId");
-
                     b.HasIndex("LegionId");
-
-                    b.HasIndex("OwnerUserId");
 
                     b.ToTable("FightGroups");
                 });
@@ -316,11 +302,7 @@ namespace StrategyGame.Dal.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<string>("UnitId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UnitId1")
+                    b.Property<int>("UnitId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -329,7 +311,7 @@ namespace StrategyGame.Dal.Migrations
 
                     b.HasKey("LegionId");
 
-                    b.HasIndex("UnitId1");
+                    b.HasIndex("UnitId");
 
                     b.HasIndex("UserId");
 
@@ -592,26 +574,20 @@ namespace StrategyGame.Dal.Migrations
 
             modelBuilder.Entity("StrategyGame.Model.Entities.FightGroup", b =>
                 {
-                    b.HasOne("StrategyGame.Model.Entities.User", "AttackedUser")
-                        .WithMany()
-                        .HasForeignKey("AttackedUserId");
-
                     b.HasOne("StrategyGame.Model.Entities.Legion", "Legion")
-                        .WithMany()
+                        .WithMany("FightGroups")
                         .HasForeignKey("LegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("StrategyGame.Model.Entities.User", "OwnerUser")
-                        .WithMany()
-                        .HasForeignKey("OwnerUserId");
                 });
 
             modelBuilder.Entity("StrategyGame.Model.Entities.Legion", b =>
                 {
                     b.HasOne("StrategyGame.Model.Entities.Unit", "Unit")
                         .WithMany("Legions")
-                        .HasForeignKey("UnitId1");
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("StrategyGame.Model.Entities.User", "User")
                         .WithMany("Legions")

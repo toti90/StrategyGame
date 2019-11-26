@@ -7,6 +7,11 @@ namespace StrategyGame.Model.Entities
 {
     public class Legion
     {
+
+        public Legion()
+        {
+            FightGroups = new HashSet<FightGroup>();
+        }
         public int LegionId { get; set; }
         public int Amount { get; set; }
         [Required]
@@ -15,6 +20,7 @@ namespace StrategyGame.Model.Entities
         [Required]
         public int UnitId { get; set; }
         public virtual Unit Unit { get; set; }
+        public virtual ICollection<FightGroup> FightGroups { get; set; }
 
     }
 }

@@ -2,7 +2,7 @@
 
 namespace StrategyGame.Dal.Migrations
 {
-    public partial class addunitsPart : Migration
+    public partial class addunitspart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,18 +33,17 @@ namespace StrategyGame.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    UnitId = table.Column<string>(nullable: false),
-                    UnitId1 = table.Column<int>(nullable: true)
+                    UnitId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Legions", x => x.LegionId);
                     table.ForeignKey(
-                        name: "FK_Legions_Units_UnitId1",
-                        column: x => x.UnitId1,
+                        name: "FK_Legions_Units_UnitId",
+                        column: x => x.UnitId,
                         principalTable: "Units",
                         principalColumn: "UnitId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Legions_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -60,39 +59,19 @@ namespace StrategyGame.Dal.Migrations
                     FightGroupId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PartOfLegion = table.Column<double>(nullable: false),
-                    AttackedId = table.Column<string>(nullable: false),
-                    AttackedUserId = table.Column<string>(nullable: true),
-                    OwnerId = table.Column<string>(nullable: false),
-                    OwnerUserId = table.Column<string>(nullable: true),
+                    AttackedUserId = table.Column<string>(nullable: false),
                     LegionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FightGroups", x => x.FightGroupId);
                     table.ForeignKey(
-                        name: "FK_FightGroups_AspNetUsers_AttackedUserId",
-                        column: x => x.AttackedUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_FightGroups_Legions_LegionId",
                         column: x => x.LegionId,
                         principalTable: "Legions",
                         principalColumn: "LegionId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FightGroups_AspNetUsers_OwnerUserId",
-                        column: x => x.OwnerUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FightGroups_AttackedUserId",
-                table: "FightGroups",
-                column: "AttackedUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FightGroups_LegionId",
@@ -100,14 +79,9 @@ namespace StrategyGame.Dal.Migrations
                 column: "LegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FightGroups_OwnerUserId",
-                table: "FightGroups",
-                column: "OwnerUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Legions_UnitId1",
+                name: "IX_Legions_UnitId",
                 table: "Legions",
-                column: "UnitId1");
+                column: "UnitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Legions_UserId",

@@ -237,7 +237,6 @@ namespace StrategyGame.Dal
                 var legion = user.Legions.Where(l => l.Unit == unit1).First();
                 var fightGroup = new FightGroup
                 {
-                    OwnerUser = user,
                     PartOfLegion = 0.5,
                     Legion = legion,
                     AttackedUserId = attackedUser.Id
