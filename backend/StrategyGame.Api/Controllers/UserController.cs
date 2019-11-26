@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StrategyGame.Bll.DTO;
-using StrategyGame.Bll.Repository;
+using StrategyGame.Bll.Interfaces;
 using StrategyGame.Model.Entities;
 
 namespace StrategyGame.Api.Controllers

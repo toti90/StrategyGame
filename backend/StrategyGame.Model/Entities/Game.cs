@@ -8,5 +8,6 @@ namespace StrategyGame.Model.Entities
     {
         public int GameId { get; set; }
         public int Round { get; set; }
+        public bool inProgress { get; set; }
     }
 }

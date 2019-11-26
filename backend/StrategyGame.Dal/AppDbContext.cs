@@ -35,6 +35,7 @@ namespace StrategyGame.Dal
             builder.Entity<NewBuilding>().Property(p => p.Round).HasDefaultValue(1);
             builder.Entity<DevelopmentGroup>().Property(p => p.Amount).HasDefaultValue(1);
             builder.Entity<NewDevelopment>().Property(p => p.Round).HasDefaultValue(1);
+            builder.Entity<Game>().Property(p => p.inProgress).HasDefaultValue(true);
 
         }
 

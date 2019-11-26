@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StrategyGame.Dal;
 using Microsoft.EntityFrameworkCore;
-using StrategyGame.Bll.Repository;
+using StrategyGame.Bll.Interfaces;
 using StrategyGame.Bll.Services;
 using Microsoft.AspNetCore.Identity;
 using StrategyGame.Model.Entities;
@@ -43,6 +43,8 @@ namespace StrategyGame.Api
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             services.AddControllers();
 

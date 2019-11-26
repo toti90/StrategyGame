@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using StrategyGame.Bll.Repository;
+using StrategyGame.Bll.Interfaces;
 using StrategyGame.Model.Entities;
 using System;
 using System.Collections.Generic;

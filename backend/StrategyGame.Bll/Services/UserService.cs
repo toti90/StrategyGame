@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StrategyGame.Bll.DTO;
 using StrategyGame.Bll.Errors;
-using StrategyGame.Bll.Repository;
+using StrategyGame.Bll.Interfaces;
 using StrategyGame.Dal;
 using StrategyGame.Model.Entities;
 using System;

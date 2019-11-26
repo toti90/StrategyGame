@@ -19,7 +19,8 @@ namespace StrategyGame.Model.Entities
         public int? AddCorall { get; set; }
         public int? AddPeople { get; set; }
         public int? HotelForArmy { get; set; }
-        public string ImageUrl { get; set; }
+        public string SmallImageUrl { get; set; }
+        public string BigImageUrl { get; set; }
         public virtual ICollection<BuildingGroup> BuildingGroups { get; set; }
 
     }
