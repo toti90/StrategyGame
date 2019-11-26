@@ -23,10 +23,11 @@ namespace StrategyGame.Bll.Services
         }
         public async Task<GameHomeScreenResponseDTO> getHomeScreen()
         {
+            var coralPerRound = 0;
             var game =  _context.Games.FirstOrDefault(p => p.inProgress);
             var user = await _context.Users.Include(u => u.Legions).Include(u => u.BuildingGroups).Include(u => u.DevelopmentGroups)
                 .Where(u => u.Id == _IUserAccessor.GetCurrentUserId()).FirstOrDefaultAsync();
-
+            var CorallPerRound = CalculateCorall(user);
             var allUnits = _context.Units.ToList();
             var responseLegions = new List<LegionHomeScreenDTO>();
             foreach (var unit in allUnits)
@@ -54,6 +55,7 @@ namespace StrategyGame.Bll.Services
             foreach (var building in allBuildings)
             {
                 var userBuildingGroups = user.BuildingGroups.Where(bg => bg.BuildingId == building.BuildingId).FirstOrDefault();
+                var userBuildingGroupsCount = userBuildingGroups != null ? userBuildingGroups.Amount : 0;
                 int userNewBuildingsCount;
                 if (userBuildingGroups != null)
                 {
@@ -62,10 +64,11 @@ namespace StrategyGame.Bll.Services
                 {
                     userNewBuildingsCount = 0;
                 }
+                
                 var buildingGroupHomeScreen = new BuildingGroupHomeScreenDTO
                 {
                     BuildingId = building.BuildingId,
-                    Amount = userBuildingGroups != null ? userBuildingGroups.Amount : 0,
+                    Amount = userBuildingGroupsCount,
                     SmallImageUrl = building.SmallImageUrl,
                     BigImageUrl = building.BigImageUrl,
                     inProgress = userNewBuildingsCount
@@ -81,6 +84,26 @@ namespace StrategyGame.Bll.Services
                 BuildingGroups = responseBuildings
             };
             return response;
+        }
+
+        public double CalculateCorall(User user)
+        {
+            var numberOfCorralForFood = _context.Legions.Include(l => l.Unit)
+                .Where(l => l.UserId == user.Id)
+                .ToList()
+                .Aggregate(0, (x, y) => x + y.Amount * y.Unit.Food);
+
+            var numberOfCoralFromBuilding = _context.BuildingGroups.Include(bg => bg.Building)
+                .Where(bg => bg.UserId == user.Id && bg.Building.AddCorall.HasValue)
+                .ToList()
+                .Aggregate(0, (x, y) => x + y.Amount * y.Building.AddCorall.Value);
+
+            var numberOfCoralFromDevelopment = _context.DevelopmentGroups.Include(dg => dg.Development)
+                .Where(dg => dg.UserId == user.Id && dg.Development.AddCorall.HasValue)
+                .ToList()
+                .Aggregate(1D, (x, y) => x * Math.Pow(y.Development.AddCorall.Value, y.Amount));
+
+            return Math.Round((numberOfCoralFromBuilding - numberOfCorralForFood)*numberOfCoralFromDevelopment, 0);
         }
     }
 }
