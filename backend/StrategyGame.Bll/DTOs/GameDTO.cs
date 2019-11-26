@@ -9,6 +9,7 @@ namespace StrategyGame.Bll.DTOs
     {
         public int Round { get; set; }
         public int Place { get; set; }
+        public string UserName { get; set; }
         public ICollection<LegionHomeScreenDTO> Legions { get; set; }
         public StorageHomeScreenDTO Storage { get; set; }
         public ICollection<BuildingGroupHomeScreenDTO> BuildingGroups { get; set; }

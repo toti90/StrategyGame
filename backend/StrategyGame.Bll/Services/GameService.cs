@@ -79,6 +79,7 @@ namespace StrategyGame.Bll.Services
             {
                 Round = game.Round,
                 Place = user.Place,
+                UserName = user.UserName,
                 Legions = responseLegions,
                 Storage = storageHomeScreen,
                 BuildingGroups = responseBuildings,
