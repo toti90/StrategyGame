@@ -46,6 +46,7 @@ namespace StrategyGame.Api
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IBuildingsService, BuildingsService>();
 
             services.AddControllers();
 

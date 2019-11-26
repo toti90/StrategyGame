@@ -1,4 +1,5 @@
 ﻿using StrategyGame.Bll.DTOs;
+using StrategyGame.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,7 @@ namespace StrategyGame.Bll.Interfaces
     public interface IGameService
     {
         Task<GameHomeScreenResponseDTO> getHomeScreen();
+        double CalculateCorall(User user);
+        double CalculatePearl(User user);
     }
 }
