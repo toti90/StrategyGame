@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StrategyGame.Bll.DTOs;
+using StrategyGame.Bll.Errors;
 using StrategyGame.Bll.Interfaces;
 using StrategyGame.Dal;
 using StrategyGame.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +23,7 @@ namespace StrategyGame.Bll.Services
             _context = context;
             _IUserAccessor = userAccessor;
         }
+
         public async Task<DevelopmentsResponseDTO> GetAllDevelopment()
         {
             var allDevelopment = await _context.Developments.ToListAsync();
@@ -50,6 +53,46 @@ namespace StrategyGame.Bll.Services
             {
                 Developments = responseDevelopents
             };
+        }
+
+        public async Task<bool> AddNewDevelopment(int developmentId)
+        {
+            var userId = await _IUserAccessor.GetCurrentUserId();
+            var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+            var userExistingDevelopmentGroups = await _context.DevelopmentGroups.Where(u => u.UserId == userId).ToListAsync();
+            var newDevelopments = await _context.NewDevelopments.ToListAsync();
+            var existInProgressDevelopment = newDevelopments.Where(nd => userExistingDevelopmentGroups.Any(uedg => uedg.DevelopmentGroupId == nd.DevelopmentGroupId && nd.Round < 15)).ToList();
+            if (existInProgressDevelopment.Count() > 0)
+            {
+                throw new RestException(HttpStatusCode.Conflict, new { Message = "You have got new development in progress" });
+            }
+            var userDevelopmentGroup = await _context.DevelopmentGroups.Where(dg => dg.DevelopmentId == developmentId && dg.UserId == userId).FirstOrDefaultAsync();
+            if (userDevelopmentGroup != null)
+            {
+                throw new RestException(HttpStatusCode.Conflict, new { Message = "You have got the target development" });
+            }
+            else
+            {
+                var development = await _context.Developments.Where(d => d.DevelopmentId == developmentId).FirstOrDefaultAsync();
+                if (development == null)
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, new { message = "unknown developmentId" });
+                }
+                var newDevelopmentGroup = new DevelopmentGroup
+                {
+                    Development = development,
+                    User = user
+                };
+                _context.DevelopmentGroups.Add(newDevelopmentGroup);
+                await _context.SaveChangesAsync();
+                var newDevelopment = new NewDevelopment
+                {
+                    DevelopmentGroup = await _context.DevelopmentGroups.Where(dg => dg.DevelopmentId == developmentId && dg.UserId == userId).FirstOrDefaultAsync()
+                };
+                _context.NewDevelopments.Add(newDevelopment);
+                await _context.SaveChangesAsync();
+            }
+            return true;
         }
 
         private string generateDevelopmentMessage(Development development)

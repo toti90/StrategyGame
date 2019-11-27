@@ -23,11 +23,21 @@ namespace StrategyGame.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult<DevelopmentsResponseDTO> getAllBuildings()
+        public async Task<ActionResult<DevelopmentsResponseDTO>> GetAllDevelopments()
         {
-            var response = _IDevelopmentsService.GetAllDevelopment();
+            var response = await _IDevelopmentsService.GetAllDevelopment();
 
             return Ok(response);
+
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> AddNewDevelopment(addNewDevelopmentRequestDTO development)
+        {
+            var response = await _IDevelopmentsService.AddNewDevelopment(development.developmentId);
+
+            return Ok();
 
         }
     }

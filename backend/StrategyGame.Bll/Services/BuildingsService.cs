@@ -50,7 +50,7 @@ namespace StrategyGame.Bll.Services
             var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
             var userExistingBuildingGroups = await _context.BuildingGroups.Where(u => u.UserId == userId).ToListAsync();
             var newBuildings = await _context.NewBuildings.ToListAsync();
-            var existInProgressBuilding = newBuildings.Where(nb => userExistingBuildingGroups.Any(uebg => uebg.BuildingGroupId == nb.BuildingGroupId)).ToList();
+            var existInProgressBuilding = newBuildings.Where(nb => userExistingBuildingGroups.Any(uebg => uebg.BuildingGroupId == nb.BuildingGroupId && nb.Round<5)).ToList();
             if (existInProgressBuilding.Count() > 0)
             {
                 throw new RestException(HttpStatusCode.Conflict, new { Message = "You have got new building in progress" });

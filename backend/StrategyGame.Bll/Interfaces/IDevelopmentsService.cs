@@ -9,5 +9,6 @@ namespace StrategyGame.Bll.Interfaces
     public interface IDevelopmentsService
     {
         Task<DevelopmentsResponseDTO> GetAllDevelopment();
+        Task<bool> AddNewDevelopment(int developmentId);
     }
 }

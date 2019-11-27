@@ -18,4 +18,9 @@ namespace StrategyGame.Bll.DTOs
         public int RoundOfNewDevelopment { get; set; }
         public bool Own { get; set; }
     }
+
+    public class addNewDevelopmentRequestDTO
+    {
+        public int developmentId { get; set; }
+    }
 }
