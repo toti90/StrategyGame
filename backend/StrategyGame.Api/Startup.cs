@@ -47,6 +47,7 @@ namespace StrategyGame.Api
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<IBuildingsService, BuildingsService>();
+            services.AddScoped<IDevelopmentsService, DevelopmentsService>();
 
             services.AddControllers();
 

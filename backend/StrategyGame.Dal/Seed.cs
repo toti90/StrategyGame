@@ -147,17 +147,29 @@ namespace StrategyGame.Dal
         {
             if (!context.NewDevelopments.Any())
             {
-                var development = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Iszaptraktor");
                 var user = context.Users.Include(p => p.DevelopmentGroups).Where(user => user.UserName == "toti").First();
-                var developmentGroup = user.DevelopmentGroups.Where(dg => dg.Development == development).First();
-                var newDevelopment = new NewDevelopment
+                var development1 = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Iszaptraktor");
+                var developmentGroup1 = user.DevelopmentGroups.Where(dg => dg.Development == development1).First();
+                var development2 = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Szonárágyú");
+                var developmentGroup2 = user.DevelopmentGroups.Where(dg => dg.Development == development2).First();
+                var newDevelopment = new List<NewDevelopment>
                 {
-                    DevelopmentGroup = developmentGroup
+                    new NewDevelopment
+                    {
+                        DevelopmentGroup = developmentGroup1,
+                        Round = 15
+                    },
+                    new NewDevelopment
+                    {
+                        DevelopmentGroup = developmentGroup2,
+                        Round = 3
+                    }
                 };
 
-                context.NewDevelopments.Add(newDevelopment);
+                context.NewDevelopments.AddRange(newDevelopment);
                 await context.SaveChangesAsync();
             }
+            
         }
 
         private async static Task SeedDevelopmentGroups(AppDbContext context)
@@ -165,14 +177,22 @@ namespace StrategyGame.Dal
             if (!context.DevelopmentGroups.Any())
             {
                 var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
-                var development = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Iszaptraktor");
-                var developmentGroup = new DevelopmentGroup
+                var development1 = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Iszaptraktor");
+                var development2 = context.Developments.FirstOrDefault(d => d.DevelopmentName == "Szonárágyú");
+                var developmentGroup = new List<DevelopmentGroup>
                 {
-                    User = user,
-                    Development = development
-                };
-
-                context.DevelopmentGroups.Add(developmentGroup);
+                    new DevelopmentGroup
+                    {
+                         User = user,
+                         Development = development1
+                    },
+                    new DevelopmentGroup
+                    {
+                         User = user,
+                         Development = development2,
+                    }
+                }; 
+                context.DevelopmentGroups.AddRange(developmentGroup);
                 await context.SaveChangesAsync();
             }
         }
