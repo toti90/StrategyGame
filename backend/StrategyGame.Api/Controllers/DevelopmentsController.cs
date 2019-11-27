@@ -25,7 +25,7 @@ namespace StrategyGame.Api.Controllers
         [Authorize]
         public ActionResult<DevelopmentsResponseDTO> getAllBuildings()
         {
-            var response = _IDevelopmentsService.getAllDevelopment();
+            var response = _IDevelopmentsService.GetAllDevelopment();
 
             return Ok(response);
 

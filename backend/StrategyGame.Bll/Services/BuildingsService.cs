@@ -23,9 +23,9 @@ namespace StrategyGame.Bll.Services
             _context = context;
             _IUserAccessor = userAccessor;
         }
-        public BuildingsResponseDTO getAllBuildings()
+        public async Task<BuildingsResponseDTO> GetAllBuildings()
         {
-            var allBuildings = _context.Buildings.ToList();
+            var allBuildings = await _context.Buildings.ToListAsync();
             var response = new List<BuildingDTO>();
             foreach (var building in allBuildings)
             {
@@ -44,10 +44,10 @@ namespace StrategyGame.Bll.Services
             return new BuildingsResponseDTO { Buildings = response};
 
         }
-        public async Task<bool> addNewBuilding(int buildingId)
+        public async Task<bool> AddNewBuilding(int buildingId)
         {
-            var userId = _IUserAccessor.GetCurrentUserId();
-            var user = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
+            var userId = await _IUserAccessor.GetCurrentUserId();
+            var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
             var userExistingBuildingGroups = await _context.BuildingGroups.Where(u => u.UserId == userId).ToListAsync();
             var newBuildings = await _context.NewBuildings.ToListAsync();
             var existInProgressBuilding = newBuildings.Where(nb => userExistingBuildingGroups.Any(uebg => uebg.BuildingGroupId == nb.BuildingGroupId)).ToList();
@@ -55,7 +55,7 @@ namespace StrategyGame.Bll.Services
             {
                 throw new RestException(HttpStatusCode.Conflict, new { Message = "You have got new building in progress" });
             }
-            var userBuildingGroup = _context.BuildingGroups.Where(bg => bg.BuildingId == buildingId && bg.UserId == userId).FirstOrDefault();
+            var userBuildingGroup = await _context.BuildingGroups.Where(bg => bg.BuildingId == buildingId && bg.UserId == userId).FirstOrDefaultAsync();
             if (userBuildingGroup != null)
             {
                 var newBuilding = new NewBuilding
@@ -63,11 +63,11 @@ namespace StrategyGame.Bll.Services
                     BuildingGroup = userBuildingGroup
                 };
                 _context.NewBuildings.Add(newBuilding);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             else
             {
-                var building = _context.Buildings.Where(b => b.BuildingId == buildingId).FirstOrDefault();
+                var building = await _context.Buildings.Where(b => b.BuildingId == buildingId).FirstOrDefaultAsync();
                 if (building == null)
                 {
                     throw new RestException(HttpStatusCode.BadRequest, new { message = "unknown buildingId" });
@@ -81,7 +81,7 @@ namespace StrategyGame.Bll.Services
                 await _context.SaveChangesAsync();
                 var newBuilding = new NewBuilding
                 {
-                    BuildingGroup = _context.BuildingGroups.Where(bg => bg.BuildingId == buildingId && bg.UserId == userId).FirstOrDefault()
+                    BuildingGroup = await _context.BuildingGroups.Where(bg => bg.BuildingId == buildingId && bg.UserId == userId).FirstOrDefaultAsync()
                 };
                 _context.NewBuildings.Add(newBuilding);
                 await _context.SaveChangesAsync();

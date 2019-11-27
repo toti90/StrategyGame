@@ -9,7 +9,7 @@ namespace StrategyGame.Bll.Interfaces
 {
     public interface IGameService
     {
-        Task<GameHomeScreenResponseDTO> getHomeScreen();
+        Task<GameHomeScreenResponseDTO> GetHomeScreen();
         double CalculateCorall(User user);
         double CalculatePearl(User user);
     }

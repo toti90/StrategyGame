@@ -25,7 +25,7 @@ namespace StrategyGame.Api.Controllers
         [Authorize]
         public async Task<ActionResult<GameHomeScreenResponseDTO>> GetHomeScreen()
         {
-            var response = await _IGameService.getHomeScreen();
+            var response = await _IGameService.GetHomeScreen();
 
             return Ok(response);
 

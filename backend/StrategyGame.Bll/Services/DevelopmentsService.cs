@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace StrategyGame.Bll.Services
 {
@@ -20,11 +21,11 @@ namespace StrategyGame.Bll.Services
             _context = context;
             _IUserAccessor = userAccessor;
         }
-        public DevelopmentsResponseDTO getAllDevelopment()
+        public async Task<DevelopmentsResponseDTO> GetAllDevelopment()
         {
-            var allDevelopment = _context.Developments.ToList();
-            var userId = _IUserAccessor.GetCurrentUserId();
-            var userDevelopmentGroups = _context.DevelopmentGroups.Where(dg => dg.UserId == userId).ToList();
+            var allDevelopment = await _context.Developments.ToListAsync();
+            var userId = await _IUserAccessor.GetCurrentUserId();
+            var userDevelopmentGroups = await _context.DevelopmentGroups.Where(dg => dg.UserId == userId).ToListAsync();
             var responseDevelopents = new List<DevelopmentDTO>();
             foreach (var development in allDevelopment)
             {
@@ -32,7 +33,7 @@ namespace StrategyGame.Bll.Services
                 var roundOfnewDevelopment = 0;
                 if (userDevelopmentGroup != null)
                 {
-                    roundOfnewDevelopment = _context.NewDevelopments.Where(nd => nd.DevelopmentGroupId == userDevelopmentGroup.DevelopmentGroupId).Select(nd => nd.Round).FirstOrDefault();
+                    roundOfnewDevelopment = await _context.NewDevelopments.Where(nd => nd.DevelopmentGroupId == userDevelopmentGroup.DevelopmentGroupId).Select(nd => nd.Round).FirstOrDefaultAsync();
                 }
                 var devResponse = new DevelopmentDTO
                 {

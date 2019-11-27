@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using StrategyGame.Bll.Errors;
 using StrategyGame.Bll.Interfaces;
 using StrategyGame.Dal;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace StrategyGame.Bll.Services
 {
@@ -20,11 +22,11 @@ namespace StrategyGame.Bll.Services
             _httpContextAccessor = httpContextAccessor;
             _appDbContext = appDbContext;
         }
-        public string GetCurrentUserId()
+        public async Task<string> GetCurrentUserId()
         {
             var userId = _httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var user = _appDbContext.Users.FirstOrDefault(u => u.Id == userId);
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user != null)
             {

@@ -80,11 +80,11 @@ namespace StrategyGame.Bll.Services
             {
 
                 //Add new Storage for new user
-                var newUser = _context.Users.FirstOrDefault(user => user.UserName == userName);
+                var newUser = await _context.Users.FirstOrDefaultAsync(user => user.UserName == userName);
                 _context.Storages.Add(new Storage { User = newUser });
 
                 //Add new Building for new user
-                var building = _context.Buildings.FirstOrDefault(building => building.BuildingName == "Áramlásirányító");
+                var building = await _context.Buildings.FirstOrDefaultAsync(building => building.BuildingName == "Áramlásirányító");
                 _context.BuildingGroups.Add(new BuildingGroup {  Building = building, User = newUser });
 
                 await _context.SaveChangesAsync();

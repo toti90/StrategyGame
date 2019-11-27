@@ -24,9 +24,9 @@ namespace StrategyGame.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult<BuildingsResponseDTO> getAllBuildings()
+        public async Task<ActionResult<BuildingsResponseDTO>> getAllBuildings()
         {
-            var response = _IBuildingsService.getAllBuildings();
+            var response = await _IBuildingsService.GetAllBuildings();
 
             return Ok(response);
 
@@ -36,7 +36,7 @@ namespace StrategyGame.Api.Controllers
         [Authorize]
         public async Task<ActionResult> addNewBuilding(addnewBuildingRequestDTO building)
         {
-            var response = await _IBuildingsService.addNewBuilding(building.buildingId);
+            var response = await _IBuildingsService.AddNewBuilding(building.buildingId);
 
             return Ok();
 

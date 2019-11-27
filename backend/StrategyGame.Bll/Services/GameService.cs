@@ -21,13 +21,14 @@ namespace StrategyGame.Bll.Services
             _context = context;
             _IUserAccessor = UserAccessor;
         }
-        public async Task<GameHomeScreenResponseDTO> getHomeScreen()
+        public async Task<GameHomeScreenResponseDTO> GetHomeScreen()
         {
-            var game =  _context.Games.FirstOrDefault(p => p.inProgress);
+            var game = await _context.Games.FirstOrDefaultAsync(p => p.inProgress);
+            var userId = await _IUserAccessor.GetCurrentUserId();
             var user = await _context.Users.Include(u => u.Legions).Include(u => u.BuildingGroups).Include(u => u.DevelopmentGroups)
-                .Where(u => u.Id == _IUserAccessor.GetCurrentUserId()).FirstOrDefaultAsync();
+                .Where(u => u.Id == userId).FirstOrDefaultAsync();
 
-            var allUnits = _context.Units.ToList();
+            var allUnits = await _context.Units.ToListAsync();
             var responseLegions = new List<LegionHomeScreenDTO>();
             foreach (var unit in allUnits)
             {
@@ -42,14 +43,14 @@ namespace StrategyGame.Bll.Services
             }
 
 
-            var storage = _context.Storages.Where(s => s.UserId == user.Id).FirstOrDefault();
+            var storage = await _context.Storages.Where(s => s.UserId == user.Id).FirstOrDefaultAsync();
             var storageHomeScreen = new StorageHomeScreenDTO
             {
                 Pearl = storage.Pearl,
                 Coral = storage.Coral
             };
 
-            var allBuildings = _context.Buildings.ToList();
+            var allBuildings = await _context.Buildings.ToListAsync();
             var responseBuildings = new List<BuildingGroupHomeScreenDTO>();
             foreach (var building in allBuildings)
             {
@@ -58,7 +59,7 @@ namespace StrategyGame.Bll.Services
                 int userNewBuildingsCount;
                 if (userBuildingGroups != null)
                 {
-                    userNewBuildingsCount = _context.NewBuildings.Where(nb => nb.BuildingGroupId == userBuildingGroups.BuildingGroupId && nb.Round < 5).Count();
+                    userNewBuildingsCount = await _context.NewBuildings.Where(nb => nb.BuildingGroupId == userBuildingGroups.BuildingGroupId && nb.Round < 5).CountAsync();
                 } else
                 {
                     userNewBuildingsCount = 0;
