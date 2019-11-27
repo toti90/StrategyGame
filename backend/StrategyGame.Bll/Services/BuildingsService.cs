@@ -25,23 +25,18 @@ namespace StrategyGame.Bll.Services
         }
         public async Task<BuildingsResponseDTO> GetAllBuildings()
         {
-            var allBuildings = await _context.Buildings.ToListAsync();
-            var response = new List<BuildingDTO>();
-            foreach (var building in allBuildings)
-            {
-                var buildingDTO = new BuildingDTO
-                {
-                    BuildingId = building.BuildingId,
-                    BuildingName = building.BuildingName,
-                    Price = building.Price,
-                    AddCoral = building.AddCorall,
-                    AddPeople = building.AddPeople,
-                    HotelForArmy = building.HotelForArmy,
-                    BigImageUrl = building.BigImageUrl
-                };
-                response.Add(buildingDTO);
-            }
-            return new BuildingsResponseDTO { Buildings = response};
+            var allBuildings = await _context.Buildings.Select(b =>
+               new BuildingDTO
+               {
+                   BuildingId = b.BuildingId,
+                   BuildingName = b.BuildingName,
+                   Price = b.Price,
+                   AddCoral = b.AddCorall,
+                   AddPeople = b.AddPeople,
+                   HotelForArmy = b.HotelForArmy,
+                   BigImageUrl = b.BigImageUrl
+               }).ToListAsync();
+            return new BuildingsResponseDTO { Buildings = allBuildings};
 
         }
         public async Task<bool> AddNewBuilding(int buildingId)
