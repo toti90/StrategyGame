@@ -24,7 +24,7 @@ namespace StrategyGame.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<BuildingsResponseDTO>> getAllBuildings()
+        public async Task<ActionResult<IEnumerable<BuildingDTO>>> getAllBuildings()
         {
             var response = await _IBuildingsService.GetAllBuildings();
 

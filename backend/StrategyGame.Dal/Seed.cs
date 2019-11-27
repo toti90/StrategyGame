@@ -37,6 +37,8 @@ namespace StrategyGame.Dal
             await SeedFightGroups(context);
 
             await SeedGame(context);
+
+            await SeedRanglistCollection(context);
         }
 
         private async static Task SeedGame(AppDbContext context)
@@ -116,7 +118,8 @@ namespace StrategyGame.Dal
                         Defense = 2,
                         Price = 50,
                         Salary = 1,
-                        Food = 1
+                        Food = 1,
+                        AddPoint = 5
                     },
                     new Unit
                     {
@@ -125,7 +128,8 @@ namespace StrategyGame.Dal
                         Defense = 6,
                         Price = 50,
                         Salary = 1,
-                        Food = 1
+                        Food = 1,
+                        AddPoint = 5
                     },
                     new Unit
                     {
@@ -134,7 +138,8 @@ namespace StrategyGame.Dal
                         Defense = 5,
                         Price = 100,
                         Salary = 3,
-                        Food = 2
+                        Food = 2,
+                        AddPoint = 10
                     },
                 };
 
@@ -359,6 +364,22 @@ namespace StrategyGame.Dal
                 };
 
                 context.Developments.AddRange(developments);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async static Task SeedRanglistCollection(AppDbContext context)
+        {
+            if (!context.RanglistCollections.Any())
+            {
+                var game = await context.Games.FirstOrDefaultAsync(g => g.inProgress == true);
+                var ranglisCollection = new RanglistCollection
+                {
+                    Game = game,
+                    Round = game.Round
+                };
+
+                context.RanglistCollections.Add(ranglisCollection);
                 await context.SaveChangesAsync();
             }
         }

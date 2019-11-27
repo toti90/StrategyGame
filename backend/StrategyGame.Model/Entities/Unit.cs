@@ -19,6 +19,7 @@ namespace StrategyGame.Model.Entities
         public int Price { get; set; }
         public int Salary { get; set; }
         public int Food { get; set; }
+        public int AddPoint { get; set; }
         public string ImageUrl { get; set; }
         public ICollection<Legion> Legions { get; set; }
     }

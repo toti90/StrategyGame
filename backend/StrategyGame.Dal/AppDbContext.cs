@@ -25,6 +25,8 @@ namespace StrategyGame.Dal
         public DbSet<Legion> Legions { get; set; }
         public DbSet<FightGroup> FightGroups { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<RanglistCollection> RanglistCollections { get; set; }
+        public DbSet<Ranglist> Ranglists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,7 +38,7 @@ namespace StrategyGame.Dal
             builder.Entity<DevelopmentGroup>().Property(p => p.Amount).HasDefaultValue(0);
             builder.Entity<NewDevelopment>().Property(p => p.Round).HasDefaultValue(1);
             builder.Entity<Game>().Property(p => p.inProgress).HasDefaultValue(true);
-
+            builder.Entity<Ranglist>().HasNoKey();
         }
 
     }

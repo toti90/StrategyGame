@@ -23,10 +23,12 @@ namespace StrategyGame.Bll.Services
             _context = context;
             _IUserAccessor = userAccessor;
         }
-        public async Task<BuildingsResponseDTO> GetAllBuildings()
+        public async Task<IEnumerable<BuildingDTO>> GetAllBuildings()
         {
             var userId = await _IUserAccessor.GetCurrentUserId();
-            var allBuildings = await _context.Buildings.Select(b =>
+            var allbuildingsList = await _context.Buildings.ToListAsync();
+
+            return allbuildingsList.Select(b =>
                new BuildingDTO
                {
                    BuildingId = b.BuildingId,
@@ -36,8 +38,7 @@ namespace StrategyGame.Bll.Services
                    AddPeople = b.AddPeople,
                    HotelForArmy = b.HotelForArmy,
                    BigImageUrl = b.BigImageUrl
-               }).ToListAsync();
-            return new BuildingsResponseDTO { Buildings = allBuildings};
+               });
 
         }
         public async Task<bool> AddNewBuilding(int buildingId)

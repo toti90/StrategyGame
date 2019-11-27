@@ -5,11 +5,6 @@ using System.Text;
 
 namespace StrategyGame.Bll.DTOs
 {
-    public class BuildingsResponseDTO
-    {
-        public ICollection<BuildingDTO> Buildings { get; set; }
-    }
-
     public class BuildingDTO
     {
         public int BuildingId { get; set; }
