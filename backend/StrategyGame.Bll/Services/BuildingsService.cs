@@ -25,6 +25,7 @@ namespace StrategyGame.Bll.Services
         }
         public async Task<BuildingsResponseDTO> GetAllBuildings()
         {
+            var userId = await _IUserAccessor.GetCurrentUserId();
             var allBuildings = await _context.Buildings.Select(b =>
                new BuildingDTO
                {
