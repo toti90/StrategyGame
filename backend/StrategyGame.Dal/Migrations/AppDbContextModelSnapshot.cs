@@ -194,7 +194,7 @@ namespace StrategyGame.Dal.Migrations
                     b.Property<int>("Amount")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
 
                     b.Property<int>("BuildingId")
                         .HasColumnType("int");

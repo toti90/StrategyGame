@@ -10,7 +10,7 @@ namespace StrategyGame.Dal.Migrations
                 name: "Amount",
                 table: "BuildingGroups",
                 nullable: false,
-                defaultValue: 1,
+                defaultValue: 0,
                 oldClrType: typeof(int),
                 oldType: "int");
 

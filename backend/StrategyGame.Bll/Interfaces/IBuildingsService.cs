@@ -9,5 +9,6 @@ namespace StrategyGame.Bll.Interfaces
     public interface IBuildingsService
     {
         BuildingsResponseDTO getAllBuildings();
+        Task<bool> addNewBuilding(int buildingId);
     }
 }

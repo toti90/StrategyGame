@@ -58,7 +58,7 @@ namespace StrategyGame.Bll.Services
                 int userNewBuildingsCount;
                 if (userBuildingGroups != null)
                 {
-                    userNewBuildingsCount = _context.NewBuildings.Where(nb => nb.BuildingGroupId == userBuildingGroups.BuildingGroupId && nb.Round < 15).Count();
+                    userNewBuildingsCount = _context.NewBuildings.Where(nb => nb.BuildingGroupId == userBuildingGroups.BuildingGroupId && nb.Round < 5).Count();
                 } else
                 {
                     userNewBuildingsCount = 0;
@@ -67,7 +67,7 @@ namespace StrategyGame.Bll.Services
                 var buildingGroupHomeScreen = new BuildingGroupHomeScreenDTO
                 {
                     BuildingId = building.BuildingId,
-                    Amount = userBuildingGroupsCount,
+                    Amount = userBuildingGroups != null ? userBuildingGroups.Amount: 0,
                     SmallImageUrl = building.SmallImageUrl,
                     BigImageUrl = building.BigImageUrl,
                     inProgress = userNewBuildingsCount

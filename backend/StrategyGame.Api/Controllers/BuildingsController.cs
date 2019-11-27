@@ -31,5 +31,15 @@ namespace StrategyGame.Api.Controllers
             return Ok(response);
 
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> addNewBuilding(addnewBuildingRequestDTO building)
+        {
+            var response = await _IBuildingsService.addNewBuilding(building.buildingId);
+
+            return Ok();
+
+        }
     }
 }

@@ -20,4 +20,9 @@ namespace StrategyGame.Bll.DTOs
         public int? HotelForArmy { get; set; }
         public string BigImageUrl { get; set; }
     }
+    public class addnewBuildingRequestDTO
+    {
+        public int buildingId { get; set; }
+    }
+
 }

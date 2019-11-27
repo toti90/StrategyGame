@@ -184,12 +184,13 @@ namespace StrategyGame.Dal
                     new DevelopmentGroup
                     {
                          User = user,
-                         Development = development1
+                         Development = development1,
+                         Amount = 1
                     },
                     new DevelopmentGroup
                     {
                          User = user,
-                         Development = development2,
+                         Development = development2
                     }
                 }; 
                 context.DevelopmentGroups.AddRange(developmentGroup);
@@ -235,14 +236,24 @@ namespace StrategyGame.Dal
             {
                 
                 var user = context.Users.FirstOrDefault(user => user.UserName == "toti");
-                var storage = new Storage
+                var user2 = context.Users.FirstOrDefault(user => user.UserName == "toti32");
+                var user3 = context.Users.FirstOrDefault(user => user.UserName == "ricsi");
+                var storage = new List<Storage>
                 {
-                    Pearl = 0,
-                    Coral = 0,
-                    User = user
+                     new Storage
+                     {
+                         User = user
+                     },
+                     new Storage
+                     {
+                         User = user2
+                     },
+                     new Storage
+                     {
+                         User = user3
+                     }
                 };
-
-                context.Storages.Add(storage);
+                context.Storages.AddRange(storage);
                 await context.SaveChangesAsync();
             }
         }
@@ -282,7 +293,8 @@ namespace StrategyGame.Dal
                 var buildingGroup = new BuildingGroup
                 {
                     User = user,
-                    Building = building
+                    Building = building,
+                    Amount = 1
                 };
 
                 context.BuildingGroups.Add(buildingGroup);

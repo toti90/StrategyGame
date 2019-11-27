@@ -31,9 +31,9 @@ namespace StrategyGame.Dal
             base.OnModelCreating(builder);
             builder.Entity<Storage>().Property(p => p.Coral).HasDefaultValue(100);
             builder.Entity<Storage>().Property(p => p.Pearl).HasDefaultValue(100);
-            builder.Entity<BuildingGroup>().Property(p => p.Amount).HasDefaultValue(1);
+            builder.Entity<BuildingGroup>().Property(p => p.Amount).HasDefaultValue(0);
             builder.Entity<NewBuilding>().Property(p => p.Round).HasDefaultValue(1);
-            builder.Entity<DevelopmentGroup>().Property(p => p.Amount).HasDefaultValue(1);
+            builder.Entity<DevelopmentGroup>().Property(p => p.Amount).HasDefaultValue(0);
             builder.Entity<NewDevelopment>().Property(p => p.Round).HasDefaultValue(1);
             builder.Entity<Game>().Property(p => p.inProgress).HasDefaultValue(true);
 
