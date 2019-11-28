@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { UserRequest, UserResponseDTO } from "../models/user";
+import { IUserRequest, IUserResponseDTO } from "../models/user";
 import { ApiCallService } from "src/app/core/services/api-call.service";
 import { Observable } from "rxjs";
 
@@ -9,11 +9,11 @@ import { Observable } from "rxjs";
 export class AuthenticationService {
   constructor(private apiCallService: ApiCallService) {}
 
-  loginUser(userRequest: UserRequest): Observable<UserResponseDTO> {
+  loginUser(userRequest: IUserRequest): Observable<IUserResponseDTO> {
     return this.apiCallService.loginUser(userRequest);
   }
 
-  registerUser(userRequest: UserRequest): Observable<UserResponseDTO> {
+  registerUser(userRequest: IUserRequest): Observable<IUserResponseDTO> {
     return this.apiCallService.registerUser(userRequest);
   }
 }

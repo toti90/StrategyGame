@@ -1,13 +1,13 @@
-export interface UserRequest {
+export interface IUserRequest {
   userName: string;
   password: string;
 }
 
-export interface UserRequestRegistration extends UserRequest {
+export interface IUserRequestRegistration extends IUserRequest {
   confirmPassword: string;
   countryName: string;
 }
 
-export interface UserResponseDTO {
+export interface IUserResponseDTO {
   token: string;
 }

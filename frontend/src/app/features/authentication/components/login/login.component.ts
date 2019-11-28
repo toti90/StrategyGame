@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { AuthenticationService } from "../../services/authentication.service";
 import { Router } from "@angular/router";
-import { UserRequest, UserResponseDTO } from "../../models/user";
+import { IUserRequest, IUserResponseDTO } from "../../models/user";
 import { LocalDbService } from "src/app/core/services/local-db.service";
 
 @Component({
@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  loginUser(userRequest: UserRequest): void {
+  loginUser(userRequest: IUserRequest): void {
     this.authenticationService.loginUser(userRequest).subscribe(
-      (userToken: UserResponseDTO) => {
+      (userToken: IUserResponseDTO) => {
         if (userToken.token != null) {
           this.localDbService.storeToken(userToken.token);
           this.router.navigate(["/battle"]);

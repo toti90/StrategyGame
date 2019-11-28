@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import {
-  UserRequest,
-  UserResponseDTO
+  IUserRequest,
+  IUserResponseDTO
 } from "src/app/features/authentication/models/user";
 import { Observable } from "rxjs";
+import { IInitialInfosDTO } from "src/app/features/battle/models/initialInfo.model";
 
 @Injectable({
   providedIn: "root"
@@ -13,8 +14,8 @@ import { Observable } from "rxjs";
 export class ApiCallService {
   constructor(private http: HttpClient) {}
 
-  loginUser(userRequest: UserRequest): Observable<UserResponseDTO> {
-    return this.http.post<UserResponseDTO>(
+  loginUser(userRequest: IUserRequest): Observable<IUserResponseDTO> {
+    return this.http.post<IUserResponseDTO>(
       `${environment.serverURL}/user/login`,
       userRequest,
       {
@@ -23,13 +24,19 @@ export class ApiCallService {
     );
   }
 
-  registerUser(userRequest: UserRequest): Observable<UserResponseDTO> {
-    return this.http.post<UserResponseDTO>(
+  registerUser(userRequest: IUserRequest): Observable<IUserResponseDTO> {
+    return this.http.post<IUserResponseDTO>(
       `${environment.serverURL}/user/register`,
       userRequest,
       {
         headers: { "content-type": "application/json" }
       }
     );
+  }
+
+  getInitialInfos(): Observable<IInitialInfosDTO> {
+    return this.http.get<IInitialInfosDTO>(`${environment.serverURL}/game`, {
+      headers: { "content-type": "application/json" }
+    });
   }
 }

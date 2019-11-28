@@ -1,11 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-
-import { ExamplePageComponent } from "./pages/example/example.page.component";
 import { AuthGuard } from "src/app/core/guards/auth.guard";
+import { HomePageComponent } from "./pages/home-page/home-page.component";
 
 const routes: Routes = [
-  { path: "", component: ExamplePageComponent, canActivate: [AuthGuard] }
+  { path: "", component: HomePageComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

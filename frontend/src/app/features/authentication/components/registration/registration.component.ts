@@ -8,7 +8,7 @@ import {
 import { Router } from "@angular/router";
 import { AuthenticationService } from "../../services/authentication.service";
 import { LocalDbService } from "src/app/core/services/local-db.service";
-import { UserRequestRegistration, UserResponseDTO } from "../../models/user";
+import { IUserRequestRegistration, IUserResponseDTO } from "../../models/user";
 
 @Component({
   selector: "app-registration",
@@ -35,9 +35,9 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  registerUser(userRequest: UserRequestRegistration): void {
+  registerUser(userRequest: IUserRequestRegistration): void {
     this.authenticationService.registerUser(userRequest).subscribe(
-      (userToken: UserResponseDTO) => {
+      (userToken: IUserResponseDTO) => {
         if (userToken.token != null) {
           this.localDbService.storeToken(userToken.token);
           this.router.navigate(["/battle"]);
