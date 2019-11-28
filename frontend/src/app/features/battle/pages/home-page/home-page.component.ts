@@ -8,6 +8,15 @@ import { IInitialInfosDTO } from "../../models/initialInfo.model";
   styleUrls: ["./home-page.component.scss"]
 })
 export class HomePageComponent implements OnInit {
+  private initialInfos: IInitialInfosDTO;
+  private buttons = [
+    "Épületek",
+    "Támadás",
+    "Fejlesztések",
+    "Harck",
+    "Ranglista",
+    "Sereg"
+  ];
   constructor(private battleService: BattleService) {}
 
   ngOnInit() {
@@ -15,6 +24,7 @@ export class HomePageComponent implements OnInit {
       .getInitialInfos()
       .subscribe((initialInfos: IInitialInfosDTO) => {
         console.log(initialInfos);
+        this.initialInfos = initialInfos;
       });
   }
 }

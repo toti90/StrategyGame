@@ -1,3 +1,45 @@
-<p>
-  home-page works!
-</p>
+<div class="main_container" *ngIf="initialInfos">
+  <div class="header_infos">
+    <div class="round"></div>
+    <div class="place"></div>
+    <div class="units_container" *ngFor="let legion of initialInfos.legions">
+      <img src="{{legion.imageUrl}}" alt="legion">
+      <p>{{legion.amount}}</p>
+    </div>
+    <div class="pearl_container">
+      <img src="../../../../../assets/pearl.svg" alt="pearl">
+      <div class="pearl_infos">
+        <p>{{initialInfos.storage.pearl}}</p>
+        <p>{{initialInfos.pearlPerRound}}</p>
+      </div>
+    </div>
+    <div class="coral_container">
+      <img src="../../../../../assets/coral.svg" alt="coral">
+      <div class="pearl_infos">
+        <p>{{initialInfos.storage.coral}}</p>
+        <p>{{initialInfos.coralPerRound}}</p>
+      </div>
+    </div>
+    <div class="buildings_container" *ngFor="let bg of initialInfos.buildingGroups">
+      <img src="{{bg.smallImageUrl}}" alt="legion">
+      <div class="bg_infos">
+        <p>{{bg.amount}}</p>
+        <p>{{bg.inProgress ? "1 épül":"0 épül"}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="left_container">
+    <div class="buttos_container">
+      <button *ngFor="let button of buttons">
+        <p>{{button}}</p>
+      </button>
+    </div>
+    <div class="user_conteiner">
+      <img src="../../../../../assets/male.svg" alt="male">
+      <p>{{initialInfos.userName}}</p>
+      <p>Profil</p>
+    </div>
+    <h3>UNDERSEA</h3>
+  </div>
+
+</div>

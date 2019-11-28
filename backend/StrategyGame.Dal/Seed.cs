@@ -119,7 +119,8 @@ namespace StrategyGame.Dal
                         Price = 50,
                         Salary = 1,
                         Food = 1,
-                        AddPoint = 5
+                        AddPoint = 5,
+                        ImageUrl = "../../../../../assets/seal.svg"
                     },
                     new Unit
                     {
@@ -129,7 +130,8 @@ namespace StrategyGame.Dal
                         Price = 50,
                         Salary = 1,
                         Food = 1,
-                        AddPoint = 5
+                        AddPoint = 5,
+                        ImageUrl = "../../../../../assets/seahorse.svg"
                     },
                     new Unit
                     {
@@ -139,7 +141,8 @@ namespace StrategyGame.Dal
                         Price = 100,
                         Salary = 3,
                         Food = 2,
-                        AddPoint = 10
+                        AddPoint = 10,
+                        ImageUrl = "../../../../../assets/shark.svg"
                     },
                 };
 
@@ -274,13 +277,17 @@ namespace StrategyGame.Dal
                         BuildingName = "Áramlásirányító",
                         Price = 1000,
                         AddPeople = 50,
-                        AddCorall = 200
+                        AddCorall = 200,
+                        BigImageUrl = "../../../../../assets/aramlasiranyito.png",
+                        SmallImageUrl = "../../../../../assets/aramlasiranyito.png"
                     },
                     new Building
                     {
                         BuildingName = "Zátonyvár",
                         Price = 1000,
-                        HotelForArmy = 200
+                        HotelForArmy = 200,
+                        BigImageUrl = "../../../../../assets/zatonyvar.png",
+                        SmallImageUrl = "../../../../../assets/zatonyvar.png"
                     }
                 };
 
