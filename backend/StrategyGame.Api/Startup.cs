@@ -72,7 +72,7 @@ namespace StrategyGame.Api
                         ValidateAudience = false,
                         ValidateIssuer = false
                     };
-                });
+                //});
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
