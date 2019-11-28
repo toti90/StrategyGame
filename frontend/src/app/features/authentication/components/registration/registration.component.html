@@ -1,20 +1,22 @@
-<div class="main_container">
-    <h1>UNDERSEA</h1>
-    <div class="form_container">
-        <h3>Regisztráció</h3>
-        <form [formGroup]="registrationForm" (ngSubmit)="registerUser(registrationForm.value)">
-            <input formControlName="userName" autocomplete="off" name="userName" placeholder="Felhasználónév" />
-            <input formControlName="password" type="password" name="password" placeholder="Jelszó" />
-            <input formControlName="confirmPassword" type="password" name="confirmPassword"
-                placeholder="Jelszó megerősítése" />
-            <input formControlName="countryName" name="countryName" placeholder="A városod neve, amit építesz" />
-            <p *ngIf="alert">{{alert}}</p>
-            <button mat-raised-button type="submit" name="registrationButton" [disabled]="!registrationForm.valid">
-                <p>Regisztráció</p>
-            </button>
-        </form>
-        <div class="router_button" [routerLink]="['/auth/login']">
-            <p>Bejelentkezés</p>
+<div class="container">
+    <div class="main_container">
+        <h1>UNDERSEA</h1>
+        <div class="form_container">
+            <h3>Regisztráció</h3>
+            <form [formGroup]="registrationForm" (ngSubmit)="registerUser(registrationForm.value)">
+                <input formControlName="userName" autocomplete="off" name="userName" placeholder="Felhasználónév" />
+                <input formControlName="password" type="password" name="password" placeholder="Jelszó" />
+                <input formControlName="confirmPassword" type="password" name="confirmPassword"
+                    placeholder="Jelszó megerősítése" />
+                <input formControlName="countryName" name="countryName" placeholder="A városod neve, amit építesz" />
+                <p *ngIf="alert">{{alert}}</p>
+                <button mat-raised-button type="submit" name="registrationButton" [disabled]="!registrationForm.valid">
+                    <p>Regisztráció</p>
+                </button>
+            </form>
+            <div class="router_button" [routerLink]="['/auth/login']">
+                <p>Bejelentkezés</p>
+            </div>
         </div>
     </div>
 </div>

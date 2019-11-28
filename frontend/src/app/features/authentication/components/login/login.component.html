@@ -1,18 +1,20 @@
-<div class="main_container">
-    <h1>UNDERSEA</h1>
-    <div class="form_container">
-        <h3>Belépés</h3>
-        <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
-            <input formControlName="userName" autocomplete="off" name="userName" placeholder="Felhasználónév" />
-            <input formControlName="password" type="password" name="password" placeholder="Jelszó" />
-            <p *ngIf="alert">{{alert}}</p>
-            <button mat-raised-button type="submit" name="loginButton" [disabled]="!loginForm.valid">
-                <p>Belépés</p>
-            </button>
-        </form>
-        <div class="router_button" [routerLink]="['/auth/registration']">
-            <p>Regisztráció</p>
-        </div>
+<div class="container">
+    <div class="main_container">
+        <h1>UNDERSEA</h1>
+        <div class="form_container">
+            <h3>Belépés</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+                <input formControlName="userName" autocomplete="off" name="userName" placeholder="Felhasználónév" />
+                <input formControlName="password" type="password" name="password" placeholder="Jelszó" />
+                <p *ngIf="alert">{{alert}}</p>
+                <button mat-raised-button type="submit" name="loginButton" [disabled]="!loginForm.valid">
+                    <p>Belépés</p>
+                </button>
+            </form>
+            <div class="router_button" [routerLink]="['/auth/registration']">
+                <p>Regisztráció</p>
+            </div>
 
+        </div>
     </div>
 </div>
