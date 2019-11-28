@@ -30,6 +30,8 @@ namespace StrategyGame.Api
             Configuration = configuration;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -39,8 +41,6 @@ namespace StrategyGame.Api
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection"));
         });
-
-
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
@@ -72,11 +72,20 @@ namespace StrategyGame.Api
                         ValidateAudience = false,
                         ValidateIssuer = false
                     };
-                //});
-            services.AddMvc(option => option.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+                    //});
+                    services.AddMvc(option => option.EnableEndpointRouting = false)
+                        .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                        .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+                });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +96,8 @@ namespace StrategyGame.Api
             {
                 //app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
 
