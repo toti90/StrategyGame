@@ -17,6 +17,7 @@ import { LocalDbService } from "src/app/core/services/local-db.service";
 })
 export class LoginComponent implements OnInit {
   private loginForm: FormGroup;
+  private alert = " ";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/battle"]);
         }
       },
-      err => alert(err.error.errors.message)
+      err => (this.alert = err.error.errors.message)
     );
   }
 }
