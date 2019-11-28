@@ -278,7 +278,7 @@ namespace StrategyGame.Dal
                         Price = 1000,
                         AddPeople = 50,
                         AddCorall = 200,
-                        BigImageUrl = "../../../../../assets/aramlasiranyito.png",
+                        BigImageUrl = "../../../../../assets/aramlasiranyito@2x.png",
                         SmallImageUrl = "../../../../../assets/aramlasiranyito.png"
                     },
                     new Building
@@ -286,7 +286,7 @@ namespace StrategyGame.Dal
                         BuildingName = "Zátonyvár",
                         Price = 1000,
                         HotelForArmy = 200,
-                        BigImageUrl = "../../../../../assets/zatonyvar.png",
+                        BigImageUrl = "../../../../../assets/zatonyvar@2x.png",
                         SmallImageUrl = "../../../../../assets/zatonyvar.png"
                     }
                 };

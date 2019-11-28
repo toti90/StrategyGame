@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { BattleService } from "../../services/battle.service";
 import { IInitialInfosDTO } from "../../models/initialInfo.model";
+import { LocalDbService } from "src/app/core/services/local-db.service";
 
 @Component({
   selector: "app-home-page",
@@ -13,11 +14,14 @@ export class HomePageComponent implements OnInit {
     "Épületek",
     "Támadás",
     "Fejlesztések",
-    "Harck",
+    "Harc",
     "Ranglista",
     "Sereg"
   ];
-  constructor(private battleService: BattleService) {}
+  constructor(
+    private battleService: BattleService,
+    private localDbService: LocalDbService
+  ) {}
 
   ngOnInit() {
     this.battleService
@@ -26,5 +30,9 @@ export class HomePageComponent implements OnInit {
         console.log(initialInfos);
         this.initialInfos = initialInfos;
       });
+  }
+
+  logout(): void {
+    this.localDbService.removeAccessToken();
   }
 }

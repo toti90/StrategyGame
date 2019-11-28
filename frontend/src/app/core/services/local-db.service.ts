@@ -15,4 +15,8 @@ export class LocalDbService {
   getAccessToken(): string {
     return localStorage.getItem(this.ACCESS_TOKEN);
   }
+
+  removeAccessToken(): void {
+    localStorage.removeItem(this.ACCESS_TOKEN);
+  }
 }

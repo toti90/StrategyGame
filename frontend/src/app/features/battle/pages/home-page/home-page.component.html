@@ -43,20 +43,27 @@
     </div>
   </div>
   <div class="left_container">
-    <div class="buttos_container">
+    <div class="buttons_container">
       <button *ngFor="let button of buttons">
         <p>{{button}}</p>
       </button>
     </div>
-    <div class="user_conteiner">
-      <div class="small_image_container">
-        <img src="../../../../../assets/male.svg" alt="male">
+    <div class="user_container">
+      <div class="user_info_container">
+        <div class="user_image_container">
+          <img src="../../../../../assets/male.svg" alt="male">
+        </div>
+        <p>{{initialInfos.userName}}</p>
+        <p style="cursor: pointer;">Profil</p>
+        <p style="cursor: pointer;" [routerLink]="['/auth/login']" (click)="logout()">Kijelentkezés</p>
       </div>
-      <p>{{initialInfos.userName}}</p>
-      <p>Profil</p>
-      <p>Kijelentkezés</p>
-    </div>
-    <h3>UNDERSEA</h3>
-  </div>
 
+    </div>
+    <div class="title_container">
+      <h3>UNDERSEA</h3>
+    </div>
+  </div>
+  <div class="buildings">
+    <div class="building_1"><img src="{{initialInfos.buildingGroups[1].bigImageUrl}}" alt="bigBuilding"></div>
+  </div>
 </div>
