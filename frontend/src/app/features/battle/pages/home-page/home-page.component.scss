@@ -1,0 +1,79 @@
+.main_container {
+  background-image: url("../../../../../assets/undersea_game-01.png");
+  background-size: 100%;
+  width: 100%;
+  height: 100vh;
+  padding-top: 50px;
+
+  .header_infos {
+    width: 90%;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 16px;
+    justify-content: space-between;
+    align-items: center;
+
+    .big_p,
+    .middle_p,
+    .small_p {
+      font-family: "Baloo", cursive;
+      color: #1c3e76;
+    }
+    .big_p {
+      font-size: 26px;
+    }
+
+    .middle_p {
+      font-size: 20px;
+    }
+
+    .small_p {
+      font-size: 14px;
+    }
+
+    .round,
+    .place,
+    .pearl_container,
+    .coral_container,
+    .buildings_container {
+      height: 100%;
+      width: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+    }
+
+    .units_container {
+      height: 100%;
+      width: 30%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .unit_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+p {
+  margin: 0;
+}
+
+.small_image_container {
+  background-color: #9ffff0;
+  border: 1px solid #428dff;
+  border-radius: 14px;
+  padding: 5px;
+  margin-right: 10px;
+}
+img {
+  height: 30px;
+  width: 30px;
+}
