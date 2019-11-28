@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div class="main_container">
+    <h1>UNDERSEA</h1>
+    <div class="form_container">
+        <h3>Belépés</h3>
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+            <input formControlName="userName" autocomplete="off" name="userName" placeholder="Felhasználónév" />
+            <input formControlName="password" type="password" name="password" placeholder="Jelszó" />
+            <button mat-raised-button type="submit" name="loginButton" [disabled]="!loginForm.valid">
+                Belépés
+            </button>
+        </form>
+        <button>
+            Regisztráció
+        </button>
+    </div>
+</div>
