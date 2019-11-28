@@ -6,11 +6,12 @@
             <input formControlName="userName" autocomplete="off" name="userName" placeholder="Felhasználónév" />
             <input formControlName="password" type="password" name="password" placeholder="Jelszó" />
             <button mat-raised-button type="submit" name="loginButton" [disabled]="!loginForm.valid">
-                Belépés
+                <p>Belépés</p>
             </button>
         </form>
-        <button>
-            Regisztráció
-        </button>
+        <div class="router_button">
+            <p>Regisztráció</p>
+        </div>
+
     </div>
 </div>
