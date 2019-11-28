@@ -1,0 +1,112 @@
+.main_container {
+  background: transparent url("../../../../../assets/undersea_game-08.png") 0%
+    0% no-repeat padding-box;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+    font-family: "Baloo", cursive;
+    font-size: 93px;
+    color: #9ffff0;
+    margin-top: 5%;
+  }
+
+  .form_container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 461px;
+    height: 394px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    h3 {
+      font-family: "Baloo", cursive;
+      font-size: 32px;
+      color: #1c3e76;
+      height: 20%;
+      margin-top: 37px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 60%;
+
+      input {
+        width: 366px;
+        height: 40px;
+        background-color: yellow;
+        opacity: 0.39;
+        border-radius: 20px;
+        border: none;
+        padding-left: 25px;
+        color: #1c3e76;
+        font-family: "Open Sans";
+        margin-bottom: 5px;
+      }
+
+      button {
+        background: transparent
+          linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%) 0% 0%
+          no-repeat padding-box;
+        box-shadow: 0px 3px 6px #3b7dbd;
+        border-radius: 90px;
+        opacity: 1;
+        width: 192px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+
+        p {
+          color: #001234;
+          opacity: 1;
+          font-family: "Baloo", cursive;
+          font-size: 18px;
+          margin: 0;
+        }
+      }
+      p {
+        color: red;
+      }
+    }
+    .router_button {
+      height: 20%;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      outline: none;
+
+      p {
+        font-family: "Baloo", cursive;
+        font-size: 18px;
+        margin: 0;
+        color: #9ffff0;
+      }
+    }
+  }
+}
+
+::placeholder {
+  color: #1c3e76;
+  font-family: "Open Sans";
+  opacity: 1;
+}

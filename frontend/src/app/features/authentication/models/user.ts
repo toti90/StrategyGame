@@ -1,11 +1,11 @@
 export interface UserRequest {
-  UserName: string;
-  Password: string;
+  userName: string;
+  password: string;
 }
 
 export interface UserRequestRegistration extends UserRequest {
-  ConfirmPassword: string;
-  CountryName: string;
+  confirmPassword: string;
+  countryName: string;
 }
 
 export interface UserResponseDTO {

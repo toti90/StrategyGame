@@ -22,4 +22,14 @@ export class ApiCallService {
       }
     );
   }
+
+  registerUser(userRequest: UserRequest): Observable<UserResponseDTO> {
+    return this.http.post<UserResponseDTO>(
+      `${environment.serverURL}/user/register`,
+      userRequest,
+      {
+        headers: { "content-type": "application/json" }
+      }
+    );
+  }
 }

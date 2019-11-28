@@ -12,4 +12,8 @@ export class AuthenticationService {
   loginUser(userRequest: UserRequest): Observable<UserResponseDTO> {
     return this.apiCallService.loginUser(userRequest);
   }
+
+  registerUser(userRequest: UserRequest): Observable<UserResponseDTO> {
+    return this.apiCallService.registerUser(userRequest);
+  }
 }
