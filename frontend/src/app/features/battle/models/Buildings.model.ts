@@ -1,10 +1,8 @@
-export interface IBuilding {
+export interface IBuildingDTO {
   buildingId: number;
   buildingName: string;
   price: number;
-  addCoral?: number;
-  addPeople?: number;
-  hotelForArmy?: number;
+  messages: string;
   bigImageUrl: string;
   own: number;
   selected: boolean;

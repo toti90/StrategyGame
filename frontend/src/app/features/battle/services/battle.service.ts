@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IInitialInfosDTO } from "../models/initialInfo.model";
 import { ApiCallService } from "src/app/core/services/api-call.service";
-import { IBuildingsDTO } from "../models/Buildings.model";
+import { IBuildingDTO } from "../models/Buildings.model";
+import { IDevelopmentDTO } from "../models/Developments.model";
 
 @Injectable()
 export class BattleService {
@@ -12,7 +13,11 @@ export class BattleService {
     return this.apiCallService.getInitialInfos();
   }
 
-  getBuildings(): Observable<IBuildingsDTO> {
+  getBuildings(): Observable<IBuildingDTO[]> {
     return this.apiCallService.getBuildings();
+  }
+
+  getDevelopments(): Observable<IDevelopmentDTO[]> {
+    return this.apiCallService.getDevelopments();
   }
 }

@@ -1,0 +1,16 @@
+<div class="tile_round" *ngIf="development.roundOfNewDevelopment < 15 && development.own">
+  <p>még {{15-development.roundOfNewDevelopment}} kör</p>
+</div>
+<div class="tick_container" *ngIf="development.own && development.roundOfNewDevelopment === 15">
+  <img src="../../../../../assets/tick.svg" alt="tickpicture">
+</div>
+<div class="tile_picture_container">
+  <img src="{{development.imageUrl ? development.imageUrl : '../../../../../../../assets/notFound.svg'}}"
+    alt="dataPicture">
+</div>
+<div class="tile_title_container">
+  <p>{{development.developmentName}}</p>
+</div>
+<div class=" tile_detail_container">
+  <p>{{development.message}}</p>
+</div>

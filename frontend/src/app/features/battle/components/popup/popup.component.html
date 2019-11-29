@@ -14,8 +14,13 @@
         [ngClass]="{'selected': building.selected === true}" (click)="selectTile(building)">
       </app-building-card>
     </div>
+    <div class="development_tile_container" *ngIf="data.category === 'developments'">
+      <app-development-card [development]="development" *ngFor="let development of data.data"
+        [ngClass]="{'selected': development.selected === true}" (click)="selectTile(development)">
+      </app-development-card>
+    </div>
   </div>
   <div class="button_container">
-    <button>{{data.buttonTitle}}</button>
+    <button (click)="buy()" [disabled]="buttonDisabled">{{data.buttonTitle}}</button>
   </div>
 </div>

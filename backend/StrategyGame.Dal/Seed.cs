@@ -341,11 +341,13 @@ namespace StrategyGame.Dal
                     {
                         DevelopmentName = "Iszaptraktor",
                         AddCorall = 1.1,
+                        ImageUrl = "../../../../../assets/iszaptraktor.png"
                     },
                     new Development
                     {
                         DevelopmentName = "Iszapkombájn",
                         AddCorall = 1.15,
+                        ImageUrl = "../../../../../assets/iszapkombajn.png"
                     },
                     new Development
                     {
@@ -356,6 +358,7 @@ namespace StrategyGame.Dal
                     {
                         DevelopmentName = "Szonárágyú",
                         AddAttack = 1.2,
+                        ImageUrl = "../../../../../assets/szonaragyu.png"
                     },
                     new Development
                     {

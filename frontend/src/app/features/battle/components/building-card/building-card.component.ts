@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { IBuilding } from "../../models/Buildings.model";
+import { IBuildingDTO } from "../../models/Buildings.model";
 
 @Component({
   selector: "app-building-card",
@@ -7,7 +7,7 @@ import { IBuilding } from "../../models/Buildings.model";
   styleUrls: ["./building-card.component.scss"]
 })
 export class BuildingCardComponent implements OnInit {
-  @Input() building: IBuilding;
+  @Input() building: IBuildingDTO;
 
   constructor() {}
 

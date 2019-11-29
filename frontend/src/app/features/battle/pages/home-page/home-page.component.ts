@@ -4,7 +4,8 @@ import { IInitialInfosDTO } from "../../models/initialInfo.model";
 import { LocalDbService } from "src/app/core/services/local-db.service";
 import { MatDialog } from "@angular/material";
 import { PopupComponent } from "../../components/popup/popup.component";
-import { IBuilding } from "../../models/Buildings.model";
+import { IBuildingDTO } from "../../models/Buildings.model";
+import { IDevelopmentDTO } from "../../models/Developments.model";
 
 @Component({
   selector: "app-home-page",
@@ -40,28 +41,42 @@ export class HomePageComponent implements OnInit {
   }
 
   getData(buttonName: string) {
-    switch (buttonName) {
-      case "Épületek":
-        this.battleService
-          .getBuildings()
-          .subscribe((buildings: IBuilding[]) => {
-            buildings.forEach(building => {
-              building.selected = false;
-              this.initialInfos.buildingGroups.forEach(bg =>
-                bg.buildingId === building.buildingId
-                  ? (building.own = bg.amount)
-                  : (building.own = 0)
-              );
-            });
-            this.openDialog(
-              "Épületek",
-              "buildings",
-              buildings,
-              "Megveszem",
-              "Kattints rá, amelyiket szeretnéd megvenni",
-              "Egyszerre csak egy épület épülhet"
+    if (buttonName === "Épületek") {
+      this.battleService
+        .getBuildings()
+        .subscribe((buildings: IBuildingDTO[]) => {
+          buildings.forEach(building => {
+            building.selected = false;
+            this.initialInfos.buildingGroups.forEach(bg =>
+              bg.buildingId === building.buildingId
+                ? (building.own = bg.amount)
+                : (building.own = 0)
             );
           });
+          this.openDialog(
+            "Épületek",
+            "buildings",
+            buildings,
+            "Megveszem",
+            "Kattints rá, amelyiket szeretnéd megvenni",
+            "Egyszerre csak egy épület épülhet"
+          );
+        });
+    } else if (buttonName === "Fejlesztések") {
+      this.battleService.getDevelopments().subscribe((d: IDevelopmentDTO[]) => {
+        let developments = d["developments"];
+        developments.forEach(development => {
+          development.selected = false;
+        });
+        this.openDialog(
+          "Fejlesztések",
+          "developments",
+          developments,
+          "Megveszem",
+          "Kattints rá, amelyiket szeretnéd megvenni",
+          "Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolod fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két kombájn)"
+        );
+      });
     }
   }
 
