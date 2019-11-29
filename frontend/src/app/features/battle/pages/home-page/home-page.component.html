@@ -44,7 +44,7 @@
   </div>
   <div class="left_container">
     <div class="buttons_container">
-      <button *ngFor="let button of buttons">
+      <button *ngFor="let button of buttons" (click)="getData(button)">
         <p>{{button}}</p>
       </button>
     </div>

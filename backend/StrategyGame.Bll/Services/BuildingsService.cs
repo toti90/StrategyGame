@@ -34,9 +34,7 @@ namespace StrategyGame.Bll.Services
                    BuildingId = b.BuildingId,
                    BuildingName = b.BuildingName,
                    Price = b.Price,
-                   AddCoral = b.AddCorall,
-                   AddPeople = b.AddPeople,
-                   HotelForArmy = b.HotelForArmy,
+                   Messages = generateBuildingtMessages(b),
                    BigImageUrl = b.BigImageUrl
                });
 
@@ -86,6 +84,22 @@ namespace StrategyGame.Bll.Services
             return true;
         }
 
-
+        private List<string> generateBuildingtMessages(Building building)
+        {
+            var response = new List<string>();
+            if (building.AddCorall.HasValue)
+            {
+                response.Add($"{building.AddCorall.Value} korallt termel körönként");
+            }
+            if (building.AddPeople.HasValue)
+            {
+                response.Add($"{building.AddPeople.Value} ember-t ad a népességhez");
+            }
+            if (building.HotelForArmy.HasValue)
+            {
+                response.Add($"{building.HotelForArmy.Value} egység számára nyújt szálást");
+            }
+            return response;
+        }
     }
 }

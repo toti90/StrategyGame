@@ -10,9 +10,7 @@ namespace StrategyGame.Bll.DTOs
         public int BuildingId { get; set; }
         public string BuildingName { get; set; }
         public int Price { get; set; }
-        public int? AddCoral { get; set; }
-        public int? AddPeople { get; set; }
-        public int? HotelForArmy { get; set; }
+        public List<string> Messages { get; set; }
         public string BigImageUrl { get; set; }
     }
     public class addnewBuildingRequestDTO

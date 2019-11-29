@@ -1,0 +1,36 @@
+.tile_picture_container {
+  img {
+    height: 100px;
+    width: 100px;
+  }
+}
+.tile_title_container,
+.tile_details_container {
+  p {
+    font-family: "Open Sans";
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}
+.tile_details_container {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  p {
+    margin: 0;
+  }
+}
+
+.tile_number_container,
+.tile_price_container {
+  p {
+    color: #ffffff;
+    font-family: "Open Sans";
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 300;
+  }
+}

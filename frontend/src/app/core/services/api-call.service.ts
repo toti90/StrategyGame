@@ -7,6 +7,7 @@ import {
 } from "src/app/features/authentication/models/user";
 import { Observable } from "rxjs";
 import { IInitialInfosDTO } from "src/app/features/battle/models/initialInfo.model";
+import { IBuildingsDTO } from "src/app/features/battle/models/Buildings.model";
 
 @Injectable({
   providedIn: "root"
@@ -36,6 +37,12 @@ export class ApiCallService {
 
   getInitialInfos(): Observable<IInitialInfosDTO> {
     return this.http.get<IInitialInfosDTO>(`${environment.serverURL}/game`, {
+      headers: { "content-type": "application/json" }
+    });
+  }
+
+  getBuildings(): Observable<IBuildingsDTO> {
+    return this.http.get<IBuildingsDTO>(`${environment.serverURL}/buildings`, {
       headers: { "content-type": "application/json" }
     });
   }

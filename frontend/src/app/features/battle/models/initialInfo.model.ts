@@ -4,7 +4,7 @@ export interface IInitialInfosDTO {
   userName: string;
   legions: ILegion[];
   storage: IStorage;
-  buildingGorups: IBuildingGroup[];
+  buildingGroups: IBuildingGroup[];
   pearlPerROund: number;
   coralPerRound: number;
 }

@@ -1,0 +1,17 @@
+<div class="tile_picture_container">
+  <img src="{{building.bigImageUrl}}" alt="dataPicture">
+</div>
+<div class="tile_title_container">
+  <p>{{building.buildingName}}</p>
+</div>
+<div class="tile_details_container">
+  <div class="tile_detail_container" *ngFor="let message of building.messages">
+    <p>{{message}}</p>
+  </div>
+</div>
+<div class="tile_number_container">
+  <p>{{building.own}} db</p>
+</div>
+<div class="tile_price_container">
+  <p>{{building.price}} Gyöngy / db</p>
+</div>
